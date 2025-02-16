@@ -48,45 +48,72 @@ def get_contributions(username: str) -> List[dict]:
 def create_space_invader_svg(contributions, output_file: str):
     svg_template = f'''<svg width="900" height="200" xmlns="http://www.w3.org/2000/svg">
     <defs>
+        <filter id="explosion" x="-50%" y="-50%" width="200%" height="200%">
+            <feGaussianBlur in="SourceGraphic" stdDeviation="3"/>
+            <feColorMatrix values="1 0 0 0 1   0 1 0 0 1   0 0 1 0 0  0 0 0 1 0"/>
+        </filter>
         <style>
-            .contribution {{ opacity: 1; transition: opacity 0.3s; }}
-            .contribution:hover {{ opacity: 0.7; }}
-            @keyframes laser-move {{ from {{ transform: scaleY(0); }} to {{ transform: scaleY(1); }} }}
+            @keyframes ship-move {{
+                0% {{ transform: translate(0, 0); }}
+                100% {{ transform: translate(800px, 0); }}
+            }}
+            @keyframes laser-shoot {{
+                0% {{ transform: scaleY(0); opacity: 1; }}
+                100% {{ transform: scaleY(1); opacity: 1; }}
+            }}
+            @keyframes explode {{
+                0% {{ transform: scale(1); opacity: 1; }}
+                100% {{ transform: scale(2); opacity: 0; }}
+            }}
+            .spaceship {{
+                animation: ship-move 4s linear infinite alternate;
+            }}
+            .contribution {{
+                transition: opacity 0.3s;
+            }}
+            .explosion {{
+                animation: explode 0.5s ease-out forwards;
+            }}
         </style>
     </defs>
     <rect width="100%" height="100%" fill="#0d1117"/>
     
     <!-- Stars -->
-    {"".join(f'<circle cx="{random.randint(0, 900)}" cy="{random.randint(0, 200)}" r="1" fill="white"><animate attributeName="opacity" values="0.2;1;0.2" dur="3s" repeatCount="indefinite"/></circle>' for _ in range(50))}
+    {"".join(f'<circle cx="{random.randint(0, 900)}" cy="{random.randint(0, 200)}" r="1" fill="white" opacity="{random.uniform(0.3, 1)}"/>' for _ in range(50))}
     
     <!-- Contributions -->
     <g id="contributions">
     {''.join(
+        f'<g class="target" id="target-{week_idx}-{day_idx}">'
         f'<rect class="contribution" x="{50 + week_idx * 15}" y="{20 + day_idx * 15}" '
-        f'width="12" height="12" rx="2" '
-        f'fill="{get_color(day["contributionCount"])}">'
-        f'<animate attributeName="opacity" values="1;0" dur="0.3s" begin="laser-{week_idx}-{day_idx}.end" fill="freeze"/>'
+        f'width="12" height="12" rx="2" fill="{get_color(day["contributionCount"])}">'
+        f'<animate attributeName="opacity" values="1;0" dur="0.5s" '
+        f'begin="laser-{week_idx}-{day_idx}.begin+0.2s" fill="freeze"/>'
         f'</rect>'
+        f'<circle class="explosion-effect" cx="{56 + week_idx * 15}" cy="{26 + day_idx * 15}" '
+        f'r="8" fill="#ff4500" opacity="0" filter="url(#explosion)">'
+        f'<animate attributeName="opacity" values="0;1;0" dur="0.5s" '
+        f'begin="laser-{week_idx}-{day_idx}.begin+0.2s" fill="freeze"/>'
+        f'</circle></g>'
         for week_idx, week in enumerate(contributions)
         for day_idx, day in enumerate(week["contributionDays"])
         if day["contributionCount"] > 0
     )}
     </g>
     
-    <!-- Spaceship and Laser -->
-    <g id="spaceship">
-        <animateTransform attributeName="transform" type="translate" 
-            values="0,0; 800,0; 0,0" dur="8s" repeatCount="indefinite"/>
+    <!-- Spaceship and Auto-firing Laser -->
+    <g class="spaceship">
         <polygon points="10,180 30,160 50,180" fill="#61dafb"/>
         <polygon points="15,180 25,185 35,180" fill="white"/>
         <circle cx="30" cy="170" r="3" fill="red"/>
         
-        <!-- Laser beam -->
+        <!-- Auto-firing lasers -->
         {''.join(
-            f'<line id="laser-{week_idx}-{day_idx}" x1="30" y1="160" '
-            f'x2="30" y2="{20 + day_idx * 15}" stroke="#ff0000" stroke-width="2" opacity="0">'
+            f'<line id="laser-{week_idx}-{day_idx}" x1="30" y1="160" x2="30" '
+            f'y2="{20 + day_idx * 15}" stroke="#ff0000" stroke-width="2" opacity="0">'
             f'<animate id="laser-anim-{week_idx}-{day_idx}" attributeName="opacity" '
-            f'values="0;1;0" dur="0.2s" begin="mouseover" restart="whenNotActive"/>'
+            f'values="0;1;0" dur="0.3s" begin="{1 + (week_idx + day_idx) * 0.5}s" '
+            f'repeatCount="indefinite"/>'
             f'</line>'
             for week_idx, week in enumerate(contributions)
             for day_idx, day in enumerate(week["contributionDays"])
