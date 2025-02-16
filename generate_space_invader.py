@@ -58,9 +58,15 @@ def create_space_invader_svg(weeks, output_file: str):
         </filter>
         
         <style>
-            @keyframes shoot {{
-                0% {{ transform: translateY(0); opacity: 1; }}
-                100% {{ transform: translateY(-250px); opacity: 0; }}
+            @keyframes ship-move {{
+                0% {{ transform: translateX(-200px); }}
+                50% {{ transform: translateX(200px); }}
+                100% {{ transform: translateX(-200px); }}
+            }}
+            
+            @keyframes laser-shot {{
+                0% {{ opacity: 1; transform: translateY(0); }}
+                100% {{ opacity: 0; transform: translateY(-250px); }}
             }}
             
             @keyframes explode {{
@@ -68,8 +74,12 @@ def create_space_invader_svg(weeks, output_file: str):
                 100% {{ transform: scale(2); opacity: 0; }}
             }}
             
+            .spaceship {{
+                animation: ship-move 4s linear infinite;
+            }}
+            
             .laser {{
-                animation: shoot 0.5s linear forwards;
+                animation: laser-shot 0.8s linear infinite;
             }}
             
             .explosion {{
@@ -101,29 +111,27 @@ def create_space_invader_svg(weeks, output_file: str):
     )}
     </g>
     
-    <!-- Space Invader Ship -->
-    <g transform="translate(400,270)">
+    <!-- Animated Space Invader Ship -->
+    <g class="spaceship" transform="translate(450,270)">
+        <!-- Ship body -->
         <rect x="-20" y="-10" width="40" height="20" fill="#2ebd2e" rx="5"/>
+        <!-- Ship top -->
         <path d="M -15 0 Q 0 -20 15 0" fill="#1a7a1a"/>
+        <!-- Cannon -->
         <rect x="-5" y="-15" width="10" height="5" fill="#ff0000"/>
+        
+        <!-- Shooting Lasers -->
+        {''.join(
+            f'<line class="laser" x1="0" y1="-10" x2="{50 + week_idx * 15 + 6 - 450}" y2="{20 + day_idx * 15 + 6 - 270}" '
+            f'stroke="#00ff00" stroke-width="2" stroke-linecap="round" opacity="0">'
+            f'<animate id="laser-{week_idx}-{day_idx}" attributeName="opacity" '
+            f'values="0;1;0" dur="1s" begin="{random.uniform(0, 2)}s" repeatCount="indefinite"/>'
+            f'</line>'
+            for week_idx, week in enumerate(weeks)
+            for day_idx, day in enumerate(week["contributionDays"])
+            if day["contributionCount"] > 0
+        )}
     </g>
-    
-    <!-- Lasers -->
-    {''.join(
-        f'<line class="laser" x1="400" y1="260" x2="400" y2="260" '
-        f'stroke="#00ff00" stroke-width="2" opacity="0">'
-        f'<animate id="laser-{week_idx}-{day_idx}" attributeName="y2" '
-        f'from="260" to="{20 + day_idx * 15 + 6}" dur="0.5s" '
-        f'begin="{random.uniform(0, 10)}s" repeatCount="indefinite"/>'
-        f'<animate attributeName="opacity" values="0;1;0" '
-        f'dur="0.5s" begin="laser-{week_idx}-{day_idx}.begin"/>'
-        f'<animate attributeName="x2" from="400" to="{50 + week_idx * 15 + 6}" '
-        f'dur="0.5s" begin="laser-{week_idx}-{day_idx}.begin"/>'
-        f'</line>'
-        for week_idx, week in enumerate(weeks)
-        for day_idx, day in enumerate(week["contributionDays"])
-        if day["contributionCount"] > 0
-    )}
 </svg>'''
 
     with open(output_file, 'w', encoding='utf-8') as f:
