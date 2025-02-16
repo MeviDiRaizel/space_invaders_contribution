@@ -58,7 +58,7 @@ def create_space_invader_svg(contributions, output_file: str):
     laser.add(dwg.line(start=(30, 160), end=(30, 20), stroke='#ff0000', stroke_width=2))
     laser_animate = dwg.animate(
         attributeName='opacity',
-        values='0;1;0',
+        values=[0, 1, 0],
         dur='0.5s',
         repeatCount='indefinite'
     )
@@ -80,7 +80,7 @@ def create_space_invader_svg(contributions, output_file: str):
                 explosion.add(dwg.circle(center=(x+5, y+5), r=8, fill='#ff4500'))
                 explosion.add(dwg.animate(
                     attributeName='opacity',
-                    values='0;1;0',
+                    values=[0, 1, 0],
                     dur='0.5s',
                     begin='indefinite'
                 ))
@@ -95,7 +95,7 @@ def create_space_invader_svg(contributions, output_file: str):
     # Add spaceship animation
     spaceship_animate = dwg.animate(
         attributeName='transform',
-        values='translate(0,0);translate(800,0);translate(0,0)',
+        values=['translate(0,0)', 'translate(800,0)', 'translate(0,0)'],
         dur='8s',
         repeatCount='indefinite'
     )
@@ -109,7 +109,7 @@ def create_space_invader_svg(contributions, output_file: str):
         star = dwg.circle(center=(x, y), r=1, fill='#ffffff')
         star_animate = dwg.animate(
             attributeName='opacity',
-            values='0.2;1;0.2',
+            values=[0.2, 1, 0.2],
             dur='2s',
             repeatCount='indefinite'
         )
