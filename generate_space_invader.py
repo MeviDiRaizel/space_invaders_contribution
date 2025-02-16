@@ -1,3 +1,4 @@
+import random
 import os
 import sys
 import datetime
@@ -6,6 +7,7 @@ import json
 from typing import List
 import svgwrite
 from svgwrite import animate
+
 
 def get_contributions(username: str) -> List[dict]:
     # GitHub GraphQL query remains the same
@@ -113,4 +115,6 @@ if __name__ == "__main__":
     create_space_invader_svg(
         data['data']['user']['contributionsCollection']['contributionCalendar']['weeks'],
         'contribution_space_invader.svg'
+        
+        
     )

@@ -2,7 +2,7 @@ name: Space Invader Contributions
 
 on:
   schedule:
-    - cron: "0 */12 * * *"  # Runs every 12 hours
+    - cron: "0 */12 * * *"
   workflow_dispatch:
 
 jobs:
@@ -26,12 +26,13 @@ jobs:
       env:
         GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
+        cd $GITHUB_WORKSPACE  # Ensure we're in the right directory
         python generate_space_invader.py
     
     - name: Commit and Push
       run: |
         git config --global user.name "GitHub Actions"
         git config --global user.email "actions@github.com"
-        git add .
+        git add contribution_space_invader.svg
         git commit -m "Update contribution space invader"
         git push
