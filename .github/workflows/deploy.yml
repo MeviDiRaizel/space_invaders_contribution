@@ -5,17 +5,20 @@ on:
     - cron: "0 */12 * * *"
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
     
     - name: Set up Python
-      uses: actions/setup-python@v2
+      uses: actions/setup-python@v4
       with:
-        python-version: '3.x'
+        python-version: '3.13'
     
     - name: Install dependencies
       run: |
@@ -26,13 +29,12 @@ jobs:
       env:
         GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
-        cd $GITHUB_WORKSPACE  # Ensure we're in the right directory
         python generate_space_invader.py
     
     - name: Commit and Push
       run: |
-        git config --global user.name "GitHub Actions"
-        git config --global user.email "actions@github.com"
+        git config --local user.name "github-actions[bot]"
+        git config --local user.email "github-actions[bot]@users.noreply.github.com"
         git add contribution_space_invader.svg
-        git commit -m "Update contribution space invader"
-        git push
+        git commit -m "Update contribution space invader" || echo "No changes to commit"
+        git push origin HEAD:main || git push origin HEAD:master

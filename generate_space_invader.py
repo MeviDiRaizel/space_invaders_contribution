@@ -8,8 +8,10 @@ from typing import List
 import svgwrite
 from svgwrite import animate
 
-
 def get_contributions(username: str) -> List[dict]:
+    token = os.getenv('GH_TOKEN')
+    if not token:
+        raise EnvironmentError("GitHub token not found. Please set the GH_TOKEN environment variable.")
     
     query = """
     query($username: String!) {
@@ -29,14 +31,23 @@ def get_contributions(username: str) -> List[dict]:
     }
     """
     
-    headers = {"Authorization": f"Bearer {os.getenv('GH_TOKEN')}"}
-    response = requests.post(
-        'https://api.github.com/graphql',
-        json={'query': query, 'variables': {'username': username}},
-        headers=headers
-    )
-    
-    return response.json()
+    headers = {"Authorization": f"Bearer {token}"}
+    try:
+        response = requests.post(
+            'https://api.github.com/graphql',
+            json={'query': query, 'variables': {'username': username}},
+            headers=headers,
+            timeout=10
+        )
+        response.raise_for_status()
+        data = response.json()
+        
+        if 'errors' in data:
+            raise Exception(f"GitHub API Error: {data['errors']}")
+        
+        return data
+    except requests.exceptions.RequestException as e:
+        raise Exception(f"Failed to fetch GitHub data: {str(e)}")
 
 def create_space_invader_svg(contributions, output_file: str):
     dwg = svgwrite.Drawing(output_file, profile='tiny', size=(900, 200))
@@ -58,7 +69,7 @@ def create_space_invader_svg(contributions, output_file: str):
     laser.add(dwg.line(start=(30, 160), end=(30, 20), stroke='#ff0000', stroke_width=2))
     laser_animate = dwg.animate(
         attributeName='opacity',
-        values=[0, 1, 0],
+        values='0;1;0',  # Changed from list to string
         dur='0.5s',
         repeatCount='indefinite'
     )
@@ -80,7 +91,7 @@ def create_space_invader_svg(contributions, output_file: str):
                 explosion.add(dwg.circle(center=(x+5, y+5), r=8, fill='#ff4500'))
                 explosion.add(dwg.animate(
                     attributeName='opacity',
-                    values=[0, 1, 0],
+                    values='0;1;0',  # Changed from list to string
                     dur='0.5s',
                     begin='indefinite'
                 ))
@@ -95,7 +106,7 @@ def create_space_invader_svg(contributions, output_file: str):
     # Add spaceship animation
     spaceship_animate = dwg.animate(
         attributeName='transform',
-        values=['translate(0,0)', 'translate(800,0)', 'translate(0,0)'],
+        values='translate(0,0);translate(800,0);translate(0,0)',  # Changed from list to string
         dur='8s',
         repeatCount='indefinite'
     )
@@ -109,7 +120,7 @@ def create_space_invader_svg(contributions, output_file: str):
         star = dwg.circle(center=(x, y), r=1, fill='#ffffff')
         star_animate = dwg.animate(
             attributeName='opacity',
-            values=[0.2, 1, 0.2],
+            values='0.2;1;0.2',  # Changed from list to string
             dur='2s',
             repeatCount='indefinite'
         )
@@ -120,11 +131,19 @@ def create_space_invader_svg(contributions, output_file: str):
     dwg.save()
 
 if __name__ == "__main__":
-    username = sys.argv[1] if len(sys.argv) > 1 else "MeviDiRaizel"
-    data = get_contributions(username)
-    
-    if 'data' in data and 'user' in data['data']:
-        weeks = data['data']['user']['contributionsCollection']['contributionCalendar']['weeks']
-        create_space_invader_svg(weeks, 'contribution_space_invader.svg')
-    else:
-        print("Error: Could not fetch contribution data")
+    try:
+        username = sys.argv[1] if len(sys.argv) > 1 else "MeviDiRaizel"
+        print(f"Fetching contributions for user: {username}")
+        
+        data = get_contributions(username)
+        
+        if 'data' in data and 'user' in data['data']:
+            weeks = data['data']['user']['contributionsCollection']['contributionCalendar']['weeks']
+            output_path = os.path.join(os.getcwd(), 'contribution_space_invader.svg')
+            create_space_invader_svg(weeks, output_path)
+            print(f"Successfully generated SVG at: {output_path}")
+        else:
+            raise Exception("Invalid response format from GitHub API")
+    except Exception as e:
+        print(f"Error: {str(e)}", file=sys.stderr)
+        sys.exit(1)
