@@ -47,32 +47,20 @@ def get_contributions(username: str) -> List[dict]:
 
 def create_space_invader_svg(weeks, output_file: str):
     def laser_lines():
-        laser_svg = ""
-        for week_idx, week in enumerate(weeks):
-            for day_idx, day in enumerate(week["contributionDays"]):
-                if day["contributionCount"] > 0:
-                    laser_svg += (
-                        f"""<line class="laser" x1="0" y1="0" x2="0" y2="-220"
-                        stroke="#ff0000" stroke-width="2" opacity="0">
-                        <animate id="laser-{week_idx}-{day_idx}"
-                            attributeName="opacity"
-                            values="0;1;0"
-                            dur="0.3s"
-                            begin="{week_idx + day_idx}s"
-                            repeatCount="1"/>
-                        </line>"""
-                    )
-        return laser_svg
+        return '''
+        <line class="laser" x1="0" y1="0" x2="0" y2="0"
+            stroke="#ff0000" stroke-width="2" stroke-linecap="round">
+            <animate attributeName="y2" values="0;-220" dur="0.3s" 
+                begin="0s;laser-opacity.end+0.7s" fill="freeze" id="laser-move"/>
+            <animate attributeName="opacity" values="1;1;0" dur="0.3s"
+                begin="0s;laser-opacity.end+0.7s" id="laser-opacity"/>
+        </line>'''
 
     svg_template = f'''<svg width="900" height="300" xmlns="http://www.w3.org/2000/svg">
     <defs>
         <filter id="explosion">
             <feGaussianBlur in="SourceGraphic" stdDeviation="2"/>
-            <feColorMatrix type="matrix" values="
-                1 0 0 0 1
-                0 1 0 0 0.5
-                0 0 1 0 0
-                0 0 0 1 0"/>
+            <feColorMatrix type="matrix" values="1 0 0 0 1  0 1 0 0 0.5  0 0 1 0 0  0 0 0 1 0"/>
         </filter>
         
         <style>
@@ -80,23 +68,18 @@ def create_space_invader_svg(weeks, output_file: str):
                 0% {{ transform: translateX(50px); }}
                 100% {{ transform: translateX(750px); }}
             }}
-            @keyframes laser-shot {{
-                from {{ transform: scaleY(0); }}
-                to {{ transform: scaleY(1); }}
-            }}
             .spaceship {{
                 animation: ship-move 6s linear infinite alternate;
             }}
             .contribution-box {{
-                transition: all 0.3s ease-out;
-            }}
-            .explosion {{
-                transform-origin: center;
-                animation: explode 0.5s ease-out forwards;
+                transition: opacity 0.3s;
             }}
             @keyframes explode {{
-                0% {{ transform: scale(0); opacity: 1; }}
+                0% {{ transform: scale(1); opacity: 1; }}
                 100% {{ transform: scale(2); opacity: 0; }}
+            }}
+            .explosion {{
+                animation: explode 0.5s ease-out forwards;
             }}
         </style>
     </defs>
@@ -111,13 +94,8 @@ def create_space_invader_svg(weeks, output_file: str):
     {''.join(
         f'<g class="contribution-group" id="contrib-{week_idx}-{day_idx}">'
         f'<rect class="contribution-box" x="{week_idx * 15}" y="{day_idx * 15}" '
-        f'width="12" height="12" rx="2" fill="{get_color(day["contributionCount"])}">'
-        f'<animate attributeName="opacity" from="1" to="0" dur="0.3s" begin="laser-{week_idx}-{day_idx}.begin" fill="freeze"/>'
-        f'</rect>'
-        f'<circle class="explosion" cx="{week_idx * 15 + 6}" cy="{day_idx * 15 + 6}" '
-        f'r="8" fill="#ff4500" opacity="0" filter="url(#explosion)">'
-        f'<animate attributeName="opacity" values="0;1;0" dur="0.5s" begin="laser-{week_idx}-{day_idx}.begin"/>'
-        f'</circle></g>'
+        f'width="12" height="12" rx="2" fill="{get_color(day["contributionCount"])}"/>'
+        f'</g>'
         for week_idx, week in enumerate(weeks)
         for day_idx, day in enumerate(week["contributionDays"])
         if day["contributionCount"] > 0
@@ -125,38 +103,65 @@ def create_space_invader_svg(weeks, output_file: str):
     </g>
     
     <!-- Space Invader Ship -->
-    <g class="spaceship" transform="translate(0,270)">
-        <path d="M-20,0 L0,-20 L20,0 L10,10 L-10,10 Z" fill="#61dafb"/>
-        <circle cx="0" cy="-5" r="3" fill="#ff0000"/>
-        
-        <!-- Auto-firing lasers -->
-        {laser_lines()}
-    </g>
-    
-    <script>
-        function resetAnimation() {{
-            var grid = document.getElementById('contribution-grid');
-            while (grid.firstChild) {{
-                grid.removeChild(grid.firstChild);
-            }}
+    <g class="spaceship">
+        <g transform="translate(0,280)">
+            <!-- Ship body (facing upward) -->
+            <path d="M-15,10 L0,-20 L15,10 L0,0 Z" fill="#61dafb"/>
+            <!-- Ship cannon -->
+            <rect x="-3" y="-15" width="6" height="8" fill="#ff0000"/>
             
-            // Reload the SVG to restart the animation
-            var svgElement = document.querySelector('svg');
-            var newSvgElement = svgElement.cloneNode(true);
-            svgElement.parentNode.replaceChild(newSvgElement, svgElement);
+            <!-- Auto-firing laser -->
+            {laser_lines()}
+        </g>
+    </g>
+
+    <script><![CDATA[
+        function createExplosion(x, y) {{
+            const explosion = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+            explosion.setAttribute("cx", x + 6);
+            explosion.setAttribute("cy", y + 6);
+            explosion.setAttribute("r", "8");
+            explosion.setAttribute("fill", "#ff4500");
+            explosion.setAttribute("filter", "url(#explosion)");
+            explosion.classList.add("explosion");
+            return explosion;
         }}
+
+        const laser = document.querySelector('.laser');
+        const grid = document.getElementById('contribution-grid');
         
-        // Check if all contribution boxes are destroyed
-        function checkContributions() {{
-            var contributions = document.querySelectorAll('.contribution-box');
-            if (contributions.length === 0) {{
-                resetAnimation();
-            }}
-        }}
-        
-        // Call checkContributions periodically
-        setInterval(checkContributions, 5000);
-    </script>
+        laser.addEventListener('beginEvent', () => {{
+            const checkCollision = setInterval(() => {{
+                const boxes = document.querySelectorAll('.contribution-box');
+                const laserBox = laser.getBoundingClientRect();
+                
+                for (const box of boxes) {{
+                    const boxRect = box.getBoundingClientRect();
+                    if (laserBox.x >= boxRect.x && 
+                        laserBox.x <= boxRect.x + boxRect.width &&
+                        laserBox.y <= boxRect.y + boxRect.height) {{
+                            
+                        const explosion = createExplosion(
+                            parseInt(box.getAttribute('x')),
+                            parseInt(box.getAttribute('y'))
+                        );
+                        
+                        box.parentElement.appendChild(explosion);
+                        box.style.opacity = 0;
+                        setTimeout(() => {{
+                            box.remove();
+                            explosion.remove();
+                        }}, 500);
+                        
+                        clearInterval(checkCollision);
+                        break;
+                    }}
+                }}
+            }}, 50);
+
+            setTimeout(() => clearInterval(checkCollision), 300);
+        }});
+    ]]></script>
 </svg>'''
 
     with open(output_file, 'w', encoding='utf-8') as f:
