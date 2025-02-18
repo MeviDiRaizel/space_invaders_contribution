@@ -113,7 +113,7 @@ def create_space_invader_svg(weeks, output_file: str):
         
         <!-- Auto-firing lasers -->
         {''.join(
-            f'<line class="laser" x1="0" y1="0" x2="0" y2="-270"
+            f"""<line class="laser" x1="0" y1="0" x2="0" y2="-270"
             stroke="#ff0000" stroke-width="2" opacity="0">
             <animate id="laser-{week_idx}-{day_idx}"
                 attributeName="opacity"
@@ -121,17 +121,7 @@ def create_space_invader_svg(weeks, output_file: str):
                 dur="0.3s"
                 begin="{week_idx + day_idx * 0.3}s"
                 repeatCount="indefinite"/>
-            <animate
-                attributeName="x1"
-                values="0;0"
-                dur="0.3s"
-                begin="{week_idx + day_idx * 0.3}s"/>
-            <animate
-                attributeName="x2"
-                values="0;0"
-                dur="0.3s"
-                begin="{week_idx + day_idx * 0.3}s"/>
-        </line>'
+            </line>"""
             for week_idx, week in enumerate(weeks)
             for day_idx, day in enumerate(week["contributionDays"])
             if day["contributionCount"] > 0
