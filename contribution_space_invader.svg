@@ -2,11 +2,7 @@
     <defs>
         <filter id="explosion">
             <feGaussianBlur in="SourceGraphic" stdDeviation="2"/>
-            <feColorMatrix type="matrix" values="
-                1 0 0 0 1
-                0 1 0 0 0.5
-                0 0 1 0 0
-                0 0 0 1 0"/>
+            <feColorMatrix type="matrix" values="1 0 0 0 1  0 1 0 0 0.5  0 0 1 0 0  0 0 0 1 0"/>
         </filter>
         
         <style>
@@ -14,23 +10,18 @@
                 0% { transform: translateX(50px); }
                 100% { transform: translateX(750px); }
             }
-            @keyframes laser-shot {
-                from { transform: scaleY(0); }
-                to { transform: scaleY(1); }
-            }
             .spaceship {
                 animation: ship-move 6s linear infinite alternate;
             }
             .contribution-box {
-                transition: all 0.3s ease-out;
-            }
-            .explosion {
-                transform-origin: center;
-                animation: explode 0.5s ease-out forwards;
+                transition: opacity 0.3s;
             }
             @keyframes explode {
-                0% { transform: scale(0); opacity: 1; }
+                0% { transform: scale(1); opacity: 1; }
                 100% { transform: scale(2); opacity: 0; }
+            }
+            .explosion {
+                animation: explode 0.5s ease-out forwards;
             }
         </style>
     </defs>
@@ -38,852 +29,78 @@
     <rect width="100%" height="100%" fill="#0d1117"/>
     
     <!-- Stars background -->
-    <circle cx="3" cy="36" r="1" fill="white" opacity="0.6338872434774312"><animate attributeName="opacity" values="0.4560056327274984;1;0.319751473406699" dur="1.7619858875739631s" repeatCount="indefinite"/></circle><circle cx="151" cy="258" r="1" fill="white" opacity="0.616020722636876"><animate attributeName="opacity" values="0.44456597269459597;1;0.3822068583404697" dur="2.0862402886912443s" repeatCount="indefinite"/></circle><circle cx="89" cy="213" r="1" fill="white" opacity="0.9022972861519314"><animate attributeName="opacity" values="0.4417841304968646;1;0.4898149003431572" dur="1.5953021788027781s" repeatCount="indefinite"/></circle><circle cx="676" cy="218" r="1" fill="white" opacity="0.6405406416380666"><animate attributeName="opacity" values="0.4672358332274154;1;0.3515074380259715" dur="2.3061640429908685s" repeatCount="indefinite"/></circle><circle cx="73" cy="33" r="1" fill="white" opacity="0.3480123097735499"><animate attributeName="opacity" values="0.4674962622923498;1;0.4664586304617162" dur="1.0777400209198196s" repeatCount="indefinite"/></circle><circle cx="306" cy="288" r="1" fill="white" opacity="0.6147667197636746"><animate attributeName="opacity" values="0.6467307622281213;1;0.6566531273119335" dur="2.6789220301720973s" repeatCount="indefinite"/></circle><circle cx="317" cy="277" r="1" fill="white" opacity="0.3794451691944439"><animate attributeName="opacity" values="0.3875099004467142;1;0.5513081198681753" dur="1.6425970160719447s" repeatCount="indefinite"/></circle><circle cx="679" cy="215" r="1" fill="white" opacity="0.5663352605449496"><animate attributeName="opacity" values="0.35053419858982704;1;0.5933196540818635" dur="1.2775875896388498s" repeatCount="indefinite"/></circle><circle cx="40" cy="31" r="1" fill="white" opacity="0.6480053147826187"><animate attributeName="opacity" values="0.3380682884231685;1;0.6813431328688081" dur="1.6890483100285043s" repeatCount="indefinite"/></circle><circle cx="890" cy="278" r="1" fill="white" opacity="0.8653618555131724"><animate attributeName="opacity" values="0.44056538494859887;1;0.6028663192557933" dur="1.945486285134356s" repeatCount="indefinite"/></circle><circle cx="553" cy="2" r="1" fill="white" opacity="0.9406518263532522"><animate attributeName="opacity" values="0.4569352644774769;1;0.36151627585344154" dur="2.3660773623522795s" repeatCount="indefinite"/></circle><circle cx="353" cy="112" r="1" fill="white" opacity="0.9877728271437409"><animate attributeName="opacity" values="0.44102578256844294;1;0.5134695798494071" dur="1.0514152684825673s" repeatCount="indefinite"/></circle><circle cx="836" cy="65" r="1" fill="white" opacity="0.7616364175656454"><animate attributeName="opacity" values="0.4455192045135645;1;0.6457471323342714" dur="2.9547188300975424s" repeatCount="indefinite"/></circle><circle cx="435" cy="197" r="1" fill="white" opacity="0.3228924345653753"><animate attributeName="opacity" values="0.3366019795134341;1;0.5786571733115975" dur="1.5408130737897165s" repeatCount="indefinite"/></circle><circle cx="658" cy="69" r="1" fill="white" opacity="0.42349975763536396"><animate attributeName="opacity" values="0.5352514073957134;1;0.5344365013139174" dur="2.2715117067566166s" repeatCount="indefinite"/></circle><circle cx="381" cy="133" r="1" fill="white" opacity="0.5618652573057441"><animate attributeName="opacity" values="0.6655797093327489;1;0.43071250012983014" dur="2.3102431462494186s" repeatCount="indefinite"/></circle><circle cx="235" cy="180" r="1" fill="white" opacity="0.9835339912650991"><animate attributeName="opacity" values="0.6797185629113167;1;0.5450911821365028" dur="2.2592004600874667s" repeatCount="indefinite"/></circle><circle cx="87" cy="240" r="1" fill="white" opacity="0.4131047740841981"><animate attributeName="opacity" values="0.5746703650977363;1;0.4660648529576895" dur="1.0106616468630465s" repeatCount="indefinite"/></circle><circle cx="670" cy="225" r="1" fill="white" opacity="0.6186396685019362"><animate attributeName="opacity" values="0.4617673033539782;1;0.44273885453006834" dur="2.96958054391832s" repeatCount="indefinite"/></circle><circle cx="388" cy="123" r="1" fill="white" opacity="0.8676859732936413"><animate attributeName="opacity" values="0.3449839015614117;1;0.5553724265240219" dur="2.1946009399007416s" repeatCount="indefinite"/></circle><circle cx="664" cy="242" r="1" fill="white" opacity="0.824117105351005"><animate attributeName="opacity" values="0.44324308159613635;1;0.46564619863037243" dur="2.8667700537887657s" repeatCount="indefinite"/></circle><circle cx="870" cy="225" r="1" fill="white" opacity="0.4254863801628593"><animate attributeName="opacity" values="0.6420333404442506;1;0.4177335268171445" dur="1.6640185137139314s" repeatCount="indefinite"/></circle><circle cx="182" cy="253" r="1" fill="white" opacity="0.9041767559721932"><animate attributeName="opacity" values="0.4478797622835403;1;0.4509291422461586" dur="2.9089694559919446s" repeatCount="indefinite"/></circle><circle cx="634" cy="196" r="1" fill="white" opacity="0.5693940834305997"><animate attributeName="opacity" values="0.4112398054417252;1;0.6261067967016536" dur="2.4252444665983566s" repeatCount="indefinite"/></circle><circle cx="574" cy="157" r="1" fill="white" opacity="0.3120107686980072"><animate attributeName="opacity" values="0.4643136700018301;1;0.5627505232788903" dur="2.0761925857484806s" repeatCount="indefinite"/></circle><circle cx="327" cy="131" r="1" fill="white" opacity="0.7184536449084321"><animate attributeName="opacity" values="0.5509581231816121;1;0.6481447992799403" dur="1.9917652486335966s" repeatCount="indefinite"/></circle><circle cx="617" cy="134" r="1" fill="white" opacity="0.729798267529726"><animate attributeName="opacity" values="0.5876609685156353;1;0.6064705578653258" dur="1.4100087689123284s" repeatCount="indefinite"/></circle><circle cx="106" cy="27" r="1" fill="white" opacity="0.9078931083476118"><animate attributeName="opacity" values="0.4619823292185976;1;0.4277683735283129" dur="1.6923079115752242s" repeatCount="indefinite"/></circle><circle cx="181" cy="110" r="1" fill="white" opacity="0.4663396310623109"><animate attributeName="opacity" values="0.5850547656732172;1;0.5237826810081784" dur="2.7926216528823726s" repeatCount="indefinite"/></circle><circle cx="111" cy="136" r="1" fill="white" opacity="0.8845891289306729"><animate attributeName="opacity" values="0.350719034236659;1;0.6870110882094271" dur="2.824019009028226s" repeatCount="indefinite"/></circle><circle cx="411" cy="209" r="1" fill="white" opacity="0.3333650914224262"><animate attributeName="opacity" values="0.5229074589585698;1;0.405893172615517" dur="1.2233199568210695s" repeatCount="indefinite"/></circle><circle cx="296" cy="7" r="1" fill="white" opacity="0.7981184255679068"><animate attributeName="opacity" values="0.5246153962674732;1;0.5809168596456102" dur="1.9090652235186067s" repeatCount="indefinite"/></circle><circle cx="46" cy="254" r="1" fill="white" opacity="0.8766614602688183"><animate attributeName="opacity" values="0.5296449599102955;1;0.6932737968832046" dur="2.2276654190447682s" repeatCount="indefinite"/></circle><circle cx="330" cy="241" r="1" fill="white" opacity="0.7731403938317043"><animate attributeName="opacity" values="0.5880370146619939;1;0.6877429309460097" dur="2.882072343107476s" repeatCount="indefinite"/></circle><circle cx="816" cy="152" r="1" fill="white" opacity="0.5043601500020177"><animate attributeName="opacity" values="0.46548978087022364;1;0.4012586636124521" dur="1.2498768604556914s" repeatCount="indefinite"/></circle><circle cx="151" cy="244" r="1" fill="white" opacity="0.6380243474314744"><animate attributeName="opacity" values="0.5569962093997781;1;0.42334716343587026" dur="1.8644590442234663s" repeatCount="indefinite"/></circle><circle cx="206" cy="290" r="1" fill="white" opacity="0.6828221386857738"><animate attributeName="opacity" values="0.6552791460516053;1;0.44943015800467434" dur="2.6524675141752083s" repeatCount="indefinite"/></circle><circle cx="790" cy="98" r="1" fill="white" opacity="0.7135906809898882"><animate attributeName="opacity" values="0.5463473307194152;1;0.6820538147626554" dur="1.7760372765909083s" repeatCount="indefinite"/></circle><circle cx="669" cy="120" r="1" fill="white" opacity="0.648001967030025"><animate attributeName="opacity" values="0.6750496795314396;1;0.42581269275117806" dur="2.6162677220700994s" repeatCount="indefinite"/></circle><circle cx="833" cy="298" r="1" fill="white" opacity="0.7440077338332962"><animate attributeName="opacity" values="0.6961526004015215;1;0.5751648579087204" dur="2.844191394204463s" repeatCount="indefinite"/></circle><circle cx="770" cy="293" r="1" fill="white" opacity="0.3181736431520286"><animate attributeName="opacity" values="0.499074385282285;1;0.3402657741227458" dur="2.725792319108844s" repeatCount="indefinite"/></circle><circle cx="750" cy="2" r="1" fill="white" opacity="0.5380175980225245"><animate attributeName="opacity" values="0.5058093971080978;1;0.6297893598623363" dur="1.8054060537768826s" repeatCount="indefinite"/></circle><circle cx="503" cy="111" r="1" fill="white" opacity="0.46888601860464163"><animate attributeName="opacity" values="0.6853504027434494;1;0.6423897984980039" dur="2.1335314879550045s" repeatCount="indefinite"/></circle><circle cx="87" cy="13" r="1" fill="white" opacity="0.3936718742251612"><animate attributeName="opacity" values="0.404338572603207;1;0.6546398963184399" dur="1.091553375435187s" repeatCount="indefinite"/></circle><circle cx="505" cy="34" r="1" fill="white" opacity="0.8519229184584924"><animate attributeName="opacity" values="0.36503330198524825;1;0.49914049167944363" dur="2.949040872362083s" repeatCount="indefinite"/></circle><circle cx="619" cy="210" r="1" fill="white" opacity="0.6164495247172346"><animate attributeName="opacity" values="0.4026727977288916;1;0.5409611067140496" dur="2.8746034233373567s" repeatCount="indefinite"/></circle><circle cx="612" cy="157" r="1" fill="white" opacity="0.5687769447142408"><animate attributeName="opacity" values="0.3843046092775116;1;0.6151126307970309" dur="2.066300064268081s" repeatCount="indefinite"/></circle><circle cx="328" cy="51" r="1" fill="white" opacity="0.3069361476022709"><animate attributeName="opacity" values="0.5278283681898343;1;0.4680239673120973" dur="2.67251604027083s" repeatCount="indefinite"/></circle><circle cx="840" cy="296" r="1" fill="white" opacity="0.4963366173224555"><animate attributeName="opacity" values="0.5902820209851161;1;0.4710791594951934" dur="2.1201871065542974s" repeatCount="indefinite"/></circle><circle cx="63" cy="33" r="1" fill="white" opacity="0.6824480769823428"><animate attributeName="opacity" values="0.35674568786421545;1;0.38017240971655775" dur="1.1612906700340442s" repeatCount="indefinite"/></circle>
+    <circle cx="734" cy="299" r="1" fill="white" opacity="0.6916551272359922"><animate attributeName="opacity" values="0.5191045099817908;1;0.5106527554884412" dur="2.8393435984295046s" repeatCount="indefinite"/></circle><circle cx="450" cy="135" r="1" fill="white" opacity="0.5636447995307496"><animate attributeName="opacity" values="0.34702357501725145;1;0.6239466469460648" dur="1.6470720894746338s" repeatCount="indefinite"/></circle><circle cx="671" cy="113" r="1" fill="white" opacity="0.9911473861492561"><animate attributeName="opacity" values="0.5233261718648751;1;0.36366121400949913" dur="2.4086156726800994s" repeatCount="indefinite"/></circle><circle cx="734" cy="70" r="1" fill="white" opacity="0.5036706086181011"><animate attributeName="opacity" values="0.34950204789182204;1;0.46387096233937697" dur="1.0556824950798684s" repeatCount="indefinite"/></circle><circle cx="506" cy="114" r="1" fill="white" opacity="0.8563911490943485"><animate attributeName="opacity" values="0.3860073182858463;1;0.3099571516492542" dur="2.3668580783075974s" repeatCount="indefinite"/></circle><circle cx="788" cy="258" r="1" fill="white" opacity="0.9353586923911448"><animate attributeName="opacity" values="0.31997671015320045;1;0.6040014865777699" dur="1.866014492395232s" repeatCount="indefinite"/></circle><circle cx="566" cy="83" r="1" fill="white" opacity="0.8810772531136168"><animate attributeName="opacity" values="0.6642103259153515;1;0.6890441044695054" dur="2.7175558164061755s" repeatCount="indefinite"/></circle><circle cx="338" cy="142" r="1" fill="white" opacity="0.585036737635084"><animate attributeName="opacity" values="0.4434207271123781;1;0.5060167560497578" dur="1.0815405649239307s" repeatCount="indefinite"/></circle><circle cx="787" cy="31" r="1" fill="white" opacity="0.7345294191714304"><animate attributeName="opacity" values="0.3171300799084425;1;0.5041685405844516" dur="2.6967483521933797s" repeatCount="indefinite"/></circle><circle cx="73" cy="160" r="1" fill="white" opacity="0.998079183139279"><animate attributeName="opacity" values="0.5983369238649796;1;0.5451013327641265" dur="1.7780475336964028s" repeatCount="indefinite"/></circle><circle cx="210" cy="204" r="1" fill="white" opacity="0.705904913111536"><animate attributeName="opacity" values="0.6489183969953201;1;0.3566929374495227" dur="1.5694006396649622s" repeatCount="indefinite"/></circle><circle cx="65" cy="292" r="1" fill="white" opacity="0.3079670539932598"><animate attributeName="opacity" values="0.6647794094509635;1;0.5181903996752026" dur="2.625280749013889s" repeatCount="indefinite"/></circle><circle cx="24" cy="237" r="1" fill="white" opacity="0.308461325159639"><animate attributeName="opacity" values="0.5517097589931417;1;0.45271020327649114" dur="1.427994938206397s" repeatCount="indefinite"/></circle><circle cx="184" cy="68" r="1" fill="white" opacity="0.683034838369879"><animate attributeName="opacity" values="0.6531026136056807;1;0.6761741364820598" dur="1.2797607016126586s" repeatCount="indefinite"/></circle><circle cx="307" cy="278" r="1" fill="white" opacity="0.8650257044814109"><animate attributeName="opacity" values="0.42623541859549435;1;0.3912147584532337" dur="1.4324547496154674s" repeatCount="indefinite"/></circle><circle cx="124" cy="277" r="1" fill="white" opacity="0.6761916998310218"><animate attributeName="opacity" values="0.6437210445315982;1;0.501861863483852" dur="2.6912476301342574s" repeatCount="indefinite"/></circle><circle cx="666" cy="64" r="1" fill="white" opacity="0.6157881279623387"><animate attributeName="opacity" values="0.6349906740497421;1;0.3695259025779327" dur="1.6501195198851535s" repeatCount="indefinite"/></circle><circle cx="125" cy="225" r="1" fill="white" opacity="0.6016384495847396"><animate attributeName="opacity" values="0.5935806688751006;1;0.6759512918984019" dur="1.7351704119306786s" repeatCount="indefinite"/></circle><circle cx="87" cy="187" r="1" fill="white" opacity="0.3308295448371701"><animate attributeName="opacity" values="0.5773215141769248;1;0.30997214763622327" dur="1.5075756853780533s" repeatCount="indefinite"/></circle><circle cx="271" cy="262" r="1" fill="white" opacity="0.36730592714392485"><animate attributeName="opacity" values="0.6038336291501785;1;0.5018876584668962" dur="2.225437047773525s" repeatCount="indefinite"/></circle><circle cx="218" cy="178" r="1" fill="white" opacity="0.39588639854495455"><animate attributeName="opacity" values="0.6413367661248834;1;0.6499705895317309" dur="2.861182641018516s" repeatCount="indefinite"/></circle><circle cx="238" cy="86" r="1" fill="white" opacity="0.7391922547804557"><animate attributeName="opacity" values="0.3699023304362174;1;0.4840803530558747" dur="1.285382430539368s" repeatCount="indefinite"/></circle><circle cx="752" cy="29" r="1" fill="white" opacity="0.6707485906287807"><animate attributeName="opacity" values="0.3811459049554284;1;0.6094387318920577" dur="2.170200255901971s" repeatCount="indefinite"/></circle><circle cx="803" cy="258" r="1" fill="white" opacity="0.42668565304708783"><animate attributeName="opacity" values="0.5830515965504549;1;0.43893466219390787" dur="2.4659917896259973s" repeatCount="indefinite"/></circle><circle cx="547" cy="116" r="1" fill="white" opacity="0.3891217820112724"><animate attributeName="opacity" values="0.30908817244951997;1;0.6383198818827882" dur="1.646594602087384s" repeatCount="indefinite"/></circle><circle cx="577" cy="82" r="1" fill="white" opacity="0.46751387266044253"><animate attributeName="opacity" values="0.33781486376093;1;0.3717109377385658" dur="2.8205371557973993s" repeatCount="indefinite"/></circle><circle cx="700" cy="49" r="1" fill="white" opacity="0.7304016667420179"><animate attributeName="opacity" values="0.6452853287647523;1;0.6337214961990509" dur="2.3857532324759276s" repeatCount="indefinite"/></circle><circle cx="792" cy="68" r="1" fill="white" opacity="0.776016730281763"><animate attributeName="opacity" values="0.5261829959222378;1;0.5055136032852003" dur="2.786015033843886s" repeatCount="indefinite"/></circle><circle cx="719" cy="85" r="1" fill="white" opacity="0.9694236861525289"><animate attributeName="opacity" values="0.5699392192765552;1;0.5462443196983178" dur="2.0724821233913833s" repeatCount="indefinite"/></circle><circle cx="858" cy="137" r="1" fill="white" opacity="0.45047804821630955"><animate attributeName="opacity" values="0.5773798989254673;1;0.3703214073600815" dur="2.767460672598328s" repeatCount="indefinite"/></circle><circle cx="560" cy="265" r="1" fill="white" opacity="0.9974009815599156"><animate attributeName="opacity" values="0.34594852739748017;1;0.5604124767234356" dur="2.34363448682066s" repeatCount="indefinite"/></circle><circle cx="129" cy="10" r="1" fill="white" opacity="0.6029080722811035"><animate attributeName="opacity" values="0.5197032968260739;1;0.6302046949299218" dur="1.2969735146767558s" repeatCount="indefinite"/></circle><circle cx="20" cy="153" r="1" fill="white" opacity="0.786791179022503"><animate attributeName="opacity" values="0.4973055116338837;1;0.670820209627659" dur="1.4292625619761854s" repeatCount="indefinite"/></circle><circle cx="450" cy="289" r="1" fill="white" opacity="0.6840889644655945"><animate attributeName="opacity" values="0.31715150487186156;1;0.6823712885533926" dur="1.9337635345423467s" repeatCount="indefinite"/></circle><circle cx="332" cy="135" r="1" fill="white" opacity="0.8176969566716008"><animate attributeName="opacity" values="0.31354716072358546;1;0.5122976521517505" dur="1.6094114491198654s" repeatCount="indefinite"/></circle><circle cx="401" cy="79" r="1" fill="white" opacity="0.6098729745133247"><animate attributeName="opacity" values="0.6573733690751105;1;0.4553855150427393" dur="2.997289538034125s" repeatCount="indefinite"/></circle><circle cx="35" cy="128" r="1" fill="white" opacity="0.31523150733029115"><animate attributeName="opacity" values="0.5282661239058755;1;0.3706475081548175" dur="2.72494621303669s" repeatCount="indefinite"/></circle><circle cx="280" cy="257" r="1" fill="white" opacity="0.7132893716002016"><animate attributeName="opacity" values="0.4665954495658724;1;0.612492030543389" dur="2.4343462045545037s" repeatCount="indefinite"/></circle><circle cx="262" cy="129" r="1" fill="white" opacity="0.6754468865209657"><animate attributeName="opacity" values="0.6047754223814379;1;0.4347343902825449" dur="2.4862609476747917s" repeatCount="indefinite"/></circle><circle cx="51" cy="174" r="1" fill="white" opacity="0.4155125468509905"><animate attributeName="opacity" values="0.3968401962675502;1;0.40722464826745874" dur="1.3324870339364712s" repeatCount="indefinite"/></circle><circle cx="886" cy="161" r="1" fill="white" opacity="0.646902563337342"><animate attributeName="opacity" values="0.5839271059013291;1;0.3962034841526614" dur="2.0483598302628057s" repeatCount="indefinite"/></circle><circle cx="595" cy="66" r="1" fill="white" opacity="0.7445438010841394"><animate attributeName="opacity" values="0.5916488761678567;1;0.6319157285245942" dur="2.2092394147963836s" repeatCount="indefinite"/></circle><circle cx="108" cy="219" r="1" fill="white" opacity="0.7520451786000634"><animate attributeName="opacity" values="0.37000819976076654;1;0.5668688509988942" dur="1.9079639424721118s" repeatCount="indefinite"/></circle><circle cx="513" cy="65" r="1" fill="white" opacity="0.8508649626332192"><animate attributeName="opacity" values="0.5980610596496011;1;0.3331972596475319" dur="1.8775241543082062s" repeatCount="indefinite"/></circle><circle cx="182" cy="60" r="1" fill="white" opacity="0.9852755400050837"><animate attributeName="opacity" values="0.48954960997641805;1;0.6366103369984368" dur="2.266961943787134s" repeatCount="indefinite"/></circle><circle cx="406" cy="84" r="1" fill="white" opacity="0.3376241726514092"><animate attributeName="opacity" values="0.6782898441954641;1;0.5424194222522289" dur="2.891909821504055s" repeatCount="indefinite"/></circle><circle cx="32" cy="131" r="1" fill="white" opacity="0.683096757906239"><animate attributeName="opacity" values="0.39711776544156074;1;0.48775826516203935" dur="2.298508886565452s" repeatCount="indefinite"/></circle><circle cx="570" cy="85" r="1" fill="white" opacity="0.7356258605621503"><animate attributeName="opacity" values="0.4000206519926687;1;0.528443095155546" dur="2.5953166902800393s" repeatCount="indefinite"/></circle><circle cx="161" cy="149" r="1" fill="white" opacity="0.5342879187840696"><animate attributeName="opacity" values="0.4903778724202039;1;0.4917392154965554" dur="2.284455530079347s" repeatCount="indefinite"/></circle><circle cx="287" cy="169" r="1" fill="white" opacity="0.49980181448614047"><animate attributeName="opacity" values="0.3208197663718803;1;0.4798978356657013" dur="2.1258107924828096s" repeatCount="indefinite"/></circle>
     
     <!-- Contribution Grid -->
     <g transform="translate(50,20)" id="contribution-grid">
-    <g class="contribution-group" id="contrib-6-0"><rect class="contribution-box" x="90" y="0" width="12" height="12" rx="2" fill="#0e4429"><animate attributeName="opacity" from="1" to="0" dur="0.3s" begin="laser-6-0.begin" fill="freeze"/></rect><circle class="explosion" cx="96" cy="6" r="8" fill="#ff4500" opacity="0" filter="url(#explosion)"><animate attributeName="opacity" values="0;1;0" dur="0.5s" begin="laser-6-0.begin"/></circle></g><g class="contribution-group" id="contrib-21-2"><rect class="contribution-box" x="315" y="30" width="12" height="12" rx="2" fill="#0e4429"><animate attributeName="opacity" from="1" to="0" dur="0.3s" begin="laser-21-2.begin" fill="freeze"/></rect><circle class="explosion" cx="321" cy="36" r="8" fill="#ff4500" opacity="0" filter="url(#explosion)"><animate attributeName="opacity" values="0;1;0" dur="0.5s" begin="laser-21-2.begin"/></circle></g><g class="contribution-group" id="contrib-24-4"><rect class="contribution-box" x="360" y="60" width="12" height="12" rx="2" fill="#0e4429"><animate attributeName="opacity" from="1" to="0" dur="0.3s" begin="laser-24-4.begin" fill="freeze"/></rect><circle class="explosion" cx="366" cy="66" r="8" fill="#ff4500" opacity="0" filter="url(#explosion)"><animate attributeName="opacity" values="0;1;0" dur="0.5s" begin="laser-24-4.begin"/></circle></g><g class="contribution-group" id="contrib-37-0"><rect class="contribution-box" x="555" y="0" width="12" height="12" rx="2" fill="#0e4429"><animate attributeName="opacity" from="1" to="0" dur="0.3s" begin="laser-37-0.begin" fill="freeze"/></rect><circle class="explosion" cx="561" cy="6" r="8" fill="#ff4500" opacity="0" filter="url(#explosion)"><animate attributeName="opacity" values="0;1;0" dur="0.5s" begin="laser-37-0.begin"/></circle></g><g class="contribution-group" id="contrib-38-2"><rect class="contribution-box" x="570" y="30" width="12" height="12" rx="2" fill="#0e4429"><animate attributeName="opacity" from="1" to="0" dur="0.3s" begin="laser-38-2.begin" fill="freeze"/></rect><circle class="explosion" cx="576" cy="36" r="8" fill="#ff4500" opacity="0" filter="url(#explosion)"><animate attributeName="opacity" values="0;1;0" dur="0.5s" begin="laser-38-2.begin"/></circle></g><g class="contribution-group" id="contrib-38-3"><rect class="contribution-box" x="570" y="45" width="12" height="12" rx="2" fill="#006d32"><animate attributeName="opacity" from="1" to="0" dur="0.3s" begin="laser-38-3.begin" fill="freeze"/></rect><circle class="explosion" cx="576" cy="51" r="8" fill="#ff4500" opacity="0" filter="url(#explosion)"><animate attributeName="opacity" values="0;1;0" dur="0.5s" begin="laser-38-3.begin"/></circle></g><g class="contribution-group" id="contrib-38-4"><rect class="contribution-box" x="570" y="60" width="12" height="12" rx="2" fill="#0e4429"><animate attributeName="opacity" from="1" to="0" dur="0.3s" begin="laser-38-4.begin" fill="freeze"/></rect><circle class="explosion" cx="576" cy="66" r="8" fill="#ff4500" opacity="0" filter="url(#explosion)"><animate attributeName="opacity" values="0;1;0" dur="0.5s" begin="laser-38-4.begin"/></circle></g><g class="contribution-group" id="contrib-38-5"><rect class="contribution-box" x="570" y="75" width="12" height="12" rx="2" fill="#006d32"><animate attributeName="opacity" from="1" to="0" dur="0.3s" begin="laser-38-5.begin" fill="freeze"/></rect><circle class="explosion" cx="576" cy="81" r="8" fill="#ff4500" opacity="0" filter="url(#explosion)"><animate attributeName="opacity" values="0;1;0" dur="0.5s" begin="laser-38-5.begin"/></circle></g><g class="contribution-group" id="contrib-38-6"><rect class="contribution-box" x="570" y="90" width="12" height="12" rx="2" fill="#006d32"><animate attributeName="opacity" from="1" to="0" dur="0.3s" begin="laser-38-6.begin" fill="freeze"/></rect><circle class="explosion" cx="576" cy="96" r="8" fill="#ff4500" opacity="0" filter="url(#explosion)"><animate attributeName="opacity" values="0;1;0" dur="0.5s" begin="laser-38-6.begin"/></circle></g><g class="contribution-group" id="contrib-39-0"><rect class="contribution-box" x="585" y="0" width="12" height="12" rx="2" fill="#0e4429"><animate attributeName="opacity" from="1" to="0" dur="0.3s" begin="laser-39-0.begin" fill="freeze"/></rect><circle class="explosion" cx="591" cy="6" r="8" fill="#ff4500" opacity="0" filter="url(#explosion)"><animate attributeName="opacity" values="0;1;0" dur="0.5s" begin="laser-39-0.begin"/></circle></g><g class="contribution-group" id="contrib-39-1"><rect class="contribution-box" x="585" y="15" width="12" height="12" rx="2" fill="#39d353"><animate attributeName="opacity" from="1" to="0" dur="0.3s" begin="laser-39-1.begin" fill="freeze"/></rect><circle class="explosion" cx="591" cy="21" r="8" fill="#ff4500" opacity="0" filter="url(#explosion)"><animate attributeName="opacity" values="0;1;0" dur="0.5s" begin="laser-39-1.begin"/></circle></g><g class="contribution-group" id="contrib-39-2"><rect class="contribution-box" x="585" y="30" width="12" height="12" rx="2" fill="#006d32"><animate attributeName="opacity" from="1" to="0" dur="0.3s" begin="laser-39-2.begin" fill="freeze"/></rect><circle class="explosion" cx="591" cy="36" r="8" fill="#ff4500" opacity="0" filter="url(#explosion)"><animate attributeName="opacity" values="0;1;0" dur="0.5s" begin="laser-39-2.begin"/></circle></g><g class="contribution-group" id="contrib-39-3"><rect class="contribution-box" x="585" y="45" width="12" height="12" rx="2" fill="#0e4429"><animate attributeName="opacity" from="1" to="0" dur="0.3s" begin="laser-39-3.begin" fill="freeze"/></rect><circle class="explosion" cx="591" cy="51" r="8" fill="#ff4500" opacity="0" filter="url(#explosion)"><animate attributeName="opacity" values="0;1;0" dur="0.5s" begin="laser-39-3.begin"/></circle></g><g class="contribution-group" id="contrib-39-4"><rect class="contribution-box" x="585" y="60" width="12" height="12" rx="2" fill="#26a641"><animate attributeName="opacity" from="1" to="0" dur="0.3s" begin="laser-39-4.begin" fill="freeze"/></rect><circle class="explosion" cx="591" cy="66" r="8" fill="#ff4500" opacity="0" filter="url(#explosion)"><animate attributeName="opacity" values="0;1;0" dur="0.5s" begin="laser-39-4.begin"/></circle></g><g class="contribution-group" id="contrib-39-5"><rect class="contribution-box" x="585" y="75" width="12" height="12" rx="2" fill="#006d32"><animate attributeName="opacity" from="1" to="0" dur="0.3s" begin="laser-39-5.begin" fill="freeze"/></rect><circle class="explosion" cx="591" cy="81" r="8" fill="#ff4500" opacity="0" filter="url(#explosion)"><animate attributeName="opacity" values="0;1;0" dur="0.5s" begin="laser-39-5.begin"/></circle></g><g class="contribution-group" id="contrib-39-6"><rect class="contribution-box" x="585" y="90" width="12" height="12" rx="2" fill="#0e4429"><animate attributeName="opacity" from="1" to="0" dur="0.3s" begin="laser-39-6.begin" fill="freeze"/></rect><circle class="explosion" cx="591" cy="96" r="8" fill="#ff4500" opacity="0" filter="url(#explosion)"><animate attributeName="opacity" values="0;1;0" dur="0.5s" begin="laser-39-6.begin"/></circle></g><g class="contribution-group" id="contrib-40-0"><rect class="contribution-box" x="600" y="0" width="12" height="12" rx="2" fill="#0e4429"><animate attributeName="opacity" from="1" to="0" dur="0.3s" begin="laser-40-0.begin" fill="freeze"/></rect><circle class="explosion" cx="606" cy="6" r="8" fill="#ff4500" opacity="0" filter="url(#explosion)"><animate attributeName="opacity" values="0;1;0" dur="0.5s" begin="laser-40-0.begin"/></circle></g><g class="contribution-group" id="contrib-40-1"><rect class="contribution-box" x="600" y="15" width="12" height="12" rx="2" fill="#006d32"><animate attributeName="opacity" from="1" to="0" dur="0.3s" begin="laser-40-1.begin" fill="freeze"/></rect><circle class="explosion" cx="606" cy="21" r="8" fill="#ff4500" opacity="0" filter="url(#explosion)"><animate attributeName="opacity" values="0;1;0" dur="0.5s" begin="laser-40-1.begin"/></circle></g><g class="contribution-group" id="contrib-40-2"><rect class="contribution-box" x="600" y="30" width="12" height="12" rx="2" fill="#006d32"><animate attributeName="opacity" from="1" to="0" dur="0.3s" begin="laser-40-2.begin" fill="freeze"/></rect><circle class="explosion" cx="606" cy="36" r="8" fill="#ff4500" opacity="0" filter="url(#explosion)"><animate attributeName="opacity" values="0;1;0" dur="0.5s" begin="laser-40-2.begin"/></circle></g><g class="contribution-group" id="contrib-40-3"><rect class="contribution-box" x="600" y="45" width="12" height="12" rx="2" fill="#006d32"><animate attributeName="opacity" from="1" to="0" dur="0.3s" begin="laser-40-3.begin" fill="freeze"/></rect><circle class="explosion" cx="606" cy="51" r="8" fill="#ff4500" opacity="0" filter="url(#explosion)"><animate attributeName="opacity" values="0;1;0" dur="0.5s" begin="laser-40-3.begin"/></circle></g><g class="contribution-group" id="contrib-40-4"><rect class="contribution-box" x="600" y="60" width="12" height="12" rx="2" fill="#0e4429"><animate attributeName="opacity" from="1" to="0" dur="0.3s" begin="laser-40-4.begin" fill="freeze"/></rect><circle class="explosion" cx="606" cy="66" r="8" fill="#ff4500" opacity="0" filter="url(#explosion)"><animate attributeName="opacity" values="0;1;0" dur="0.5s" begin="laser-40-4.begin"/></circle></g><g class="contribution-group" id="contrib-40-5"><rect class="contribution-box" x="600" y="75" width="12" height="12" rx="2" fill="#0e4429"><animate attributeName="opacity" from="1" to="0" dur="0.3s" begin="laser-40-5.begin" fill="freeze"/></rect><circle class="explosion" cx="606" cy="81" r="8" fill="#ff4500" opacity="0" filter="url(#explosion)"><animate attributeName="opacity" values="0;1;0" dur="0.5s" begin="laser-40-5.begin"/></circle></g><g class="contribution-group" id="contrib-40-6"><rect class="contribution-box" x="600" y="90" width="12" height="12" rx="2" fill="#0e4429"><animate attributeName="opacity" from="1" to="0" dur="0.3s" begin="laser-40-6.begin" fill="freeze"/></rect><circle class="explosion" cx="606" cy="96" r="8" fill="#ff4500" opacity="0" filter="url(#explosion)"><animate attributeName="opacity" values="0;1;0" dur="0.5s" begin="laser-40-6.begin"/></circle></g><g class="contribution-group" id="contrib-41-0"><rect class="contribution-box" x="615" y="0" width="12" height="12" rx="2" fill="#0e4429"><animate attributeName="opacity" from="1" to="0" dur="0.3s" begin="laser-41-0.begin" fill="freeze"/></rect><circle class="explosion" cx="621" cy="6" r="8" fill="#ff4500" opacity="0" filter="url(#explosion)"><animate attributeName="opacity" values="0;1;0" dur="0.5s" begin="laser-41-0.begin"/></circle></g><g class="contribution-group" id="contrib-41-1"><rect class="contribution-box" x="615" y="15" width="12" height="12" rx="2" fill="#006d32"><animate attributeName="opacity" from="1" to="0" dur="0.3s" begin="laser-41-1.begin" fill="freeze"/></rect><circle class="explosion" cx="621" cy="21" r="8" fill="#ff4500" opacity="0" filter="url(#explosion)"><animate attributeName="opacity" values="0;1;0" dur="0.5s" begin="laser-41-1.begin"/></circle></g><g class="contribution-group" id="contrib-41-2"><rect class="contribution-box" x="615" y="30" width="12" height="12" rx="2" fill="#006d32"><animate attributeName="opacity" from="1" to="0" dur="0.3s" begin="laser-41-2.begin" fill="freeze"/></rect><circle class="explosion" cx="621" cy="36" r="8" fill="#ff4500" opacity="0" filter="url(#explosion)"><animate attributeName="opacity" values="0;1;0" dur="0.5s" begin="laser-41-2.begin"/></circle></g><g class="contribution-group" id="contrib-41-3"><rect class="contribution-box" x="615" y="45" width="12" height="12" rx="2" fill="#006d32"><animate attributeName="opacity" from="1" to="0" dur="0.3s" begin="laser-41-3.begin" fill="freeze"/></rect><circle class="explosion" cx="621" cy="51" r="8" fill="#ff4500" opacity="0" filter="url(#explosion)"><animate attributeName="opacity" values="0;1;0" dur="0.5s" begin="laser-41-3.begin"/></circle></g><g class="contribution-group" id="contrib-41-4"><rect class="contribution-box" x="615" y="60" width="12" height="12" rx="2" fill="#006d32"><animate attributeName="opacity" from="1" to="0" dur="0.3s" begin="laser-41-4.begin" fill="freeze"/></rect><circle class="explosion" cx="621" cy="66" r="8" fill="#ff4500" opacity="0" filter="url(#explosion)"><animate attributeName="opacity" values="0;1;0" dur="0.5s" begin="laser-41-4.begin"/></circle></g><g class="contribution-group" id="contrib-41-5"><rect class="contribution-box" x="615" y="75" width="12" height="12" rx="2" fill="#0e4429"><animate attributeName="opacity" from="1" to="0" dur="0.3s" begin="laser-41-5.begin" fill="freeze"/></rect><circle class="explosion" cx="621" cy="81" r="8" fill="#ff4500" opacity="0" filter="url(#explosion)"><animate attributeName="opacity" values="0;1;0" dur="0.5s" begin="laser-41-5.begin"/></circle></g><g class="contribution-group" id="contrib-41-6"><rect class="contribution-box" x="615" y="90" width="12" height="12" rx="2" fill="#0e4429"><animate attributeName="opacity" from="1" to="0" dur="0.3s" begin="laser-41-6.begin" fill="freeze"/></rect><circle class="explosion" cx="621" cy="96" r="8" fill="#ff4500" opacity="0" filter="url(#explosion)"><animate attributeName="opacity" values="0;1;0" dur="0.5s" begin="laser-41-6.begin"/></circle></g><g class="contribution-group" id="contrib-42-0"><rect class="contribution-box" x="630" y="0" width="12" height="12" rx="2" fill="#0e4429"><animate attributeName="opacity" from="1" to="0" dur="0.3s" begin="laser-42-0.begin" fill="freeze"/></rect><circle class="explosion" cx="636" cy="6" r="8" fill="#ff4500" opacity="0" filter="url(#explosion)"><animate attributeName="opacity" values="0;1;0" dur="0.5s" begin="laser-42-0.begin"/></circle></g><g class="contribution-group" id="contrib-42-1"><rect class="contribution-box" x="630" y="15" width="12" height="12" rx="2" fill="#006d32"><animate attributeName="opacity" from="1" to="0" dur="0.3s" begin="laser-42-1.begin" fill="freeze"/></rect><circle class="explosion" cx="636" cy="21" r="8" fill="#ff4500" opacity="0" filter="url(#explosion)"><animate attributeName="opacity" values="0;1;0" dur="0.5s" begin="laser-42-1.begin"/></circle></g><g class="contribution-group" id="contrib-42-2"><rect class="contribution-box" x="630" y="30" width="12" height="12" rx="2" fill="#0e4429"><animate attributeName="opacity" from="1" to="0" dur="0.3s" begin="laser-42-2.begin" fill="freeze"/></rect><circle class="explosion" cx="636" cy="36" r="8" fill="#ff4500" opacity="0" filter="url(#explosion)"><animate attributeName="opacity" values="0;1;0" dur="0.5s" begin="laser-42-2.begin"/></circle></g><g class="contribution-group" id="contrib-42-3"><rect class="contribution-box" x="630" y="45" width="12" height="12" rx="2" fill="#006d32"><animate attributeName="opacity" from="1" to="0" dur="0.3s" begin="laser-42-3.begin" fill="freeze"/></rect><circle class="explosion" cx="636" cy="51" r="8" fill="#ff4500" opacity="0" filter="url(#explosion)"><animate attributeName="opacity" values="0;1;0" dur="0.5s" begin="laser-42-3.begin"/></circle></g><g class="contribution-group" id="contrib-42-4"><rect class="contribution-box" x="630" y="60" width="12" height="12" rx="2" fill="#0e4429"><animate attributeName="opacity" from="1" to="0" dur="0.3s" begin="laser-42-4.begin" fill="freeze"/></rect><circle class="explosion" cx="636" cy="66" r="8" fill="#ff4500" opacity="0" filter="url(#explosion)"><animate attributeName="opacity" values="0;1;0" dur="0.5s" begin="laser-42-4.begin"/></circle></g><g class="contribution-group" id="contrib-42-5"><rect class="contribution-box" x="630" y="75" width="12" height="12" rx="2" fill="#006d32"><animate attributeName="opacity" from="1" to="0" dur="0.3s" begin="laser-42-5.begin" fill="freeze"/></rect><circle class="explosion" cx="636" cy="81" r="8" fill="#ff4500" opacity="0" filter="url(#explosion)"><animate attributeName="opacity" values="0;1;0" dur="0.5s" begin="laser-42-5.begin"/></circle></g><g class="contribution-group" id="contrib-42-6"><rect class="contribution-box" x="630" y="90" width="12" height="12" rx="2" fill="#0e4429"><animate attributeName="opacity" from="1" to="0" dur="0.3s" begin="laser-42-6.begin" fill="freeze"/></rect><circle class="explosion" cx="636" cy="96" r="8" fill="#ff4500" opacity="0" filter="url(#explosion)"><animate attributeName="opacity" values="0;1;0" dur="0.5s" begin="laser-42-6.begin"/></circle></g><g class="contribution-group" id="contrib-43-0"><rect class="contribution-box" x="645" y="0" width="12" height="12" rx="2" fill="#0e4429"><animate attributeName="opacity" from="1" to="0" dur="0.3s" begin="laser-43-0.begin" fill="freeze"/></rect><circle class="explosion" cx="651" cy="6" r="8" fill="#ff4500" opacity="0" filter="url(#explosion)"><animate attributeName="opacity" values="0;1;0" dur="0.5s" begin="laser-43-0.begin"/></circle></g><g class="contribution-group" id="contrib-43-1"><rect class="contribution-box" x="645" y="15" width="12" height="12" rx="2" fill="#006d32"><animate attributeName="opacity" from="1" to="0" dur="0.3s" begin="laser-43-1.begin" fill="freeze"/></rect><circle class="explosion" cx="651" cy="21" r="8" fill="#ff4500" opacity="0" filter="url(#explosion)"><animate attributeName="opacity" values="0;1;0" dur="0.5s" begin="laser-43-1.begin"/></circle></g><g class="contribution-group" id="contrib-43-2"><rect class="contribution-box" x="645" y="30" width="12" height="12" rx="2" fill="#006d32"><animate attributeName="opacity" from="1" to="0" dur="0.3s" begin="laser-43-2.begin" fill="freeze"/></rect><circle class="explosion" cx="651" cy="36" r="8" fill="#ff4500" opacity="0" filter="url(#explosion)"><animate attributeName="opacity" values="0;1;0" dur="0.5s" begin="laser-43-2.begin"/></circle></g><g class="contribution-group" id="contrib-43-3"><rect class="contribution-box" x="645" y="45" width="12" height="12" rx="2" fill="#006d32"><animate attributeName="opacity" from="1" to="0" dur="0.3s" begin="laser-43-3.begin" fill="freeze"/></rect><circle class="explosion" cx="651" cy="51" r="8" fill="#ff4500" opacity="0" filter="url(#explosion)"><animate attributeName="opacity" values="0;1;0" dur="0.5s" begin="laser-43-3.begin"/></circle></g><g class="contribution-group" id="contrib-43-4"><rect class="contribution-box" x="645" y="60" width="12" height="12" rx="2" fill="#0e4429"><animate attributeName="opacity" from="1" to="0" dur="0.3s" begin="laser-43-4.begin" fill="freeze"/></rect><circle class="explosion" cx="651" cy="66" r="8" fill="#ff4500" opacity="0" filter="url(#explosion)"><animate attributeName="opacity" values="0;1;0" dur="0.5s" begin="laser-43-4.begin"/></circle></g><g class="contribution-group" id="contrib-43-5"><rect class="contribution-box" x="645" y="75" width="12" height="12" rx="2" fill="#0e4429"><animate attributeName="opacity" from="1" to="0" dur="0.3s" begin="laser-43-5.begin" fill="freeze"/></rect><circle class="explosion" cx="651" cy="81" r="8" fill="#ff4500" opacity="0" filter="url(#explosion)"><animate attributeName="opacity" values="0;1;0" dur="0.5s" begin="laser-43-5.begin"/></circle></g><g class="contribution-group" id="contrib-43-6"><rect class="contribution-box" x="645" y="90" width="12" height="12" rx="2" fill="#0e4429"><animate attributeName="opacity" from="1" to="0" dur="0.3s" begin="laser-43-6.begin" fill="freeze"/></rect><circle class="explosion" cx="651" cy="96" r="8" fill="#ff4500" opacity="0" filter="url(#explosion)"><animate attributeName="opacity" values="0;1;0" dur="0.5s" begin="laser-43-6.begin"/></circle></g><g class="contribution-group" id="contrib-44-1"><rect class="contribution-box" x="660" y="15" width="12" height="12" rx="2" fill="#0e4429"><animate attributeName="opacity" from="1" to="0" dur="0.3s" begin="laser-44-1.begin" fill="freeze"/></rect><circle class="explosion" cx="666" cy="21" r="8" fill="#ff4500" opacity="0" filter="url(#explosion)"><animate attributeName="opacity" values="0;1;0" dur="0.5s" begin="laser-44-1.begin"/></circle></g><g class="contribution-group" id="contrib-44-2"><rect class="contribution-box" x="660" y="30" width="12" height="12" rx="2" fill="#0e4429"><animate attributeName="opacity" from="1" to="0" dur="0.3s" begin="laser-44-2.begin" fill="freeze"/></rect><circle class="explosion" cx="666" cy="36" r="8" fill="#ff4500" opacity="0" filter="url(#explosion)"><animate attributeName="opacity" values="0;1;0" dur="0.5s" begin="laser-44-2.begin"/></circle></g><g class="contribution-group" id="contrib-44-3"><rect class="contribution-box" x="660" y="45" width="12" height="12" rx="2" fill="#006d32"><animate attributeName="opacity" from="1" to="0" dur="0.3s" begin="laser-44-3.begin" fill="freeze"/></rect><circle class="explosion" cx="666" cy="51" r="8" fill="#ff4500" opacity="0" filter="url(#explosion)"><animate attributeName="opacity" values="0;1;0" dur="0.5s" begin="laser-44-3.begin"/></circle></g><g class="contribution-group" id="contrib-44-4"><rect class="contribution-box" x="660" y="60" width="12" height="12" rx="2" fill="#0e4429"><animate attributeName="opacity" from="1" to="0" dur="0.3s" begin="laser-44-4.begin" fill="freeze"/></rect><circle class="explosion" cx="666" cy="66" r="8" fill="#ff4500" opacity="0" filter="url(#explosion)"><animate attributeName="opacity" values="0;1;0" dur="0.5s" begin="laser-44-4.begin"/></circle></g><g class="contribution-group" id="contrib-44-5"><rect class="contribution-box" x="660" y="75" width="12" height="12" rx="2" fill="#0e4429"><animate attributeName="opacity" from="1" to="0" dur="0.3s" begin="laser-44-5.begin" fill="freeze"/></rect><circle class="explosion" cx="666" cy="81" r="8" fill="#ff4500" opacity="0" filter="url(#explosion)"><animate attributeName="opacity" values="0;1;0" dur="0.5s" begin="laser-44-5.begin"/></circle></g><g class="contribution-group" id="contrib-44-6"><rect class="contribution-box" x="660" y="90" width="12" height="12" rx="2" fill="#0e4429"><animate attributeName="opacity" from="1" to="0" dur="0.3s" begin="laser-44-6.begin" fill="freeze"/></rect><circle class="explosion" cx="666" cy="96" r="8" fill="#ff4500" opacity="0" filter="url(#explosion)"><animate attributeName="opacity" values="0;1;0" dur="0.5s" begin="laser-44-6.begin"/></circle></g><g class="contribution-group" id="contrib-45-0"><rect class="contribution-box" x="675" y="0" width="12" height="12" rx="2" fill="#0e4429"><animate attributeName="opacity" from="1" to="0" dur="0.3s" begin="laser-45-0.begin" fill="freeze"/></rect><circle class="explosion" cx="681" cy="6" r="8" fill="#ff4500" opacity="0" filter="url(#explosion)"><animate attributeName="opacity" values="0;1;0" dur="0.5s" begin="laser-45-0.begin"/></circle></g><g class="contribution-group" id="contrib-45-1"><rect class="contribution-box" x="675" y="15" width="12" height="12" rx="2" fill="#0e4429"><animate attributeName="opacity" from="1" to="0" dur="0.3s" begin="laser-45-1.begin" fill="freeze"/></rect><circle class="explosion" cx="681" cy="21" r="8" fill="#ff4500" opacity="0" filter="url(#explosion)"><animate attributeName="opacity" values="0;1;0" dur="0.5s" begin="laser-45-1.begin"/></circle></g><g class="contribution-group" id="contrib-45-2"><rect class="contribution-box" x="675" y="30" width="12" height="12" rx="2" fill="#0e4429"><animate attributeName="opacity" from="1" to="0" dur="0.3s" begin="laser-45-2.begin" fill="freeze"/></rect><circle class="explosion" cx="681" cy="36" r="8" fill="#ff4500" opacity="0" filter="url(#explosion)"><animate attributeName="opacity" values="0;1;0" dur="0.5s" begin="laser-45-2.begin"/></circle></g><g class="contribution-group" id="contrib-45-3"><rect class="contribution-box" x="675" y="45" width="12" height="12" rx="2" fill="#006d32"><animate attributeName="opacity" from="1" to="0" dur="0.3s" begin="laser-45-3.begin" fill="freeze"/></rect><circle class="explosion" cx="681" cy="51" r="8" fill="#ff4500" opacity="0" filter="url(#explosion)"><animate attributeName="opacity" values="0;1;0" dur="0.5s" begin="laser-45-3.begin"/></circle></g><g class="contribution-group" id="contrib-45-4"><rect class="contribution-box" x="675" y="60" width="12" height="12" rx="2" fill="#0e4429"><animate attributeName="opacity" from="1" to="0" dur="0.3s" begin="laser-45-4.begin" fill="freeze"/></rect><circle class="explosion" cx="681" cy="66" r="8" fill="#ff4500" opacity="0" filter="url(#explosion)"><animate attributeName="opacity" values="0;1;0" dur="0.5s" begin="laser-45-4.begin"/></circle></g><g class="contribution-group" id="contrib-45-5"><rect class="contribution-box" x="675" y="75" width="12" height="12" rx="2" fill="#0e4429"><animate attributeName="opacity" from="1" to="0" dur="0.3s" begin="laser-45-5.begin" fill="freeze"/></rect><circle class="explosion" cx="681" cy="81" r="8" fill="#ff4500" opacity="0" filter="url(#explosion)"><animate attributeName="opacity" values="0;1;0" dur="0.5s" begin="laser-45-5.begin"/></circle></g><g class="contribution-group" id="contrib-45-6"><rect class="contribution-box" x="675" y="90" width="12" height="12" rx="2" fill="#0e4429"><animate attributeName="opacity" from="1" to="0" dur="0.3s" begin="laser-45-6.begin" fill="freeze"/></rect><circle class="explosion" cx="681" cy="96" r="8" fill="#ff4500" opacity="0" filter="url(#explosion)"><animate attributeName="opacity" values="0;1;0" dur="0.5s" begin="laser-45-6.begin"/></circle></g><g class="contribution-group" id="contrib-46-0"><rect class="contribution-box" x="690" y="0" width="12" height="12" rx="2" fill="#006d32"><animate attributeName="opacity" from="1" to="0" dur="0.3s" begin="laser-46-0.begin" fill="freeze"/></rect><circle class="explosion" cx="696" cy="6" r="8" fill="#ff4500" opacity="0" filter="url(#explosion)"><animate attributeName="opacity" values="0;1;0" dur="0.5s" begin="laser-46-0.begin"/></circle></g><g class="contribution-group" id="contrib-46-1"><rect class="contribution-box" x="690" y="15" width="12" height="12" rx="2" fill="#0e4429"><animate attributeName="opacity" from="1" to="0" dur="0.3s" begin="laser-46-1.begin" fill="freeze"/></rect><circle class="explosion" cx="696" cy="21" r="8" fill="#ff4500" opacity="0" filter="url(#explosion)"><animate attributeName="opacity" values="0;1;0" dur="0.5s" begin="laser-46-1.begin"/></circle></g><g class="contribution-group" id="contrib-46-2"><rect class="contribution-box" x="690" y="30" width="12" height="12" rx="2" fill="#006d32"><animate attributeName="opacity" from="1" to="0" dur="0.3s" begin="laser-46-2.begin" fill="freeze"/></rect><circle class="explosion" cx="696" cy="36" r="8" fill="#ff4500" opacity="0" filter="url(#explosion)"><animate attributeName="opacity" values="0;1;0" dur="0.5s" begin="laser-46-2.begin"/></circle></g><g class="contribution-group" id="contrib-46-3"><rect class="contribution-box" x="690" y="45" width="12" height="12" rx="2" fill="#006d32"><animate attributeName="opacity" from="1" to="0" dur="0.3s" begin="laser-46-3.begin" fill="freeze"/></rect><circle class="explosion" cx="696" cy="51" r="8" fill="#ff4500" opacity="0" filter="url(#explosion)"><animate attributeName="opacity" values="0;1;0" dur="0.5s" begin="laser-46-3.begin"/></circle></g><g class="contribution-group" id="contrib-46-4"><rect class="contribution-box" x="690" y="60" width="12" height="12" rx="2" fill="#006d32"><animate attributeName="opacity" from="1" to="0" dur="0.3s" begin="laser-46-4.begin" fill="freeze"/></rect><circle class="explosion" cx="696" cy="66" r="8" fill="#ff4500" opacity="0" filter="url(#explosion)"><animate attributeName="opacity" values="0;1;0" dur="0.5s" begin="laser-46-4.begin"/></circle></g><g class="contribution-group" id="contrib-46-5"><rect class="contribution-box" x="690" y="75" width="12" height="12" rx="2" fill="#0e4429"><animate attributeName="opacity" from="1" to="0" dur="0.3s" begin="laser-46-5.begin" fill="freeze"/></rect><circle class="explosion" cx="696" cy="81" r="8" fill="#ff4500" opacity="0" filter="url(#explosion)"><animate attributeName="opacity" values="0;1;0" dur="0.5s" begin="laser-46-5.begin"/></circle></g><g class="contribution-group" id="contrib-46-6"><rect class="contribution-box" x="690" y="90" width="12" height="12" rx="2" fill="#0e4429"><animate attributeName="opacity" from="1" to="0" dur="0.3s" begin="laser-46-6.begin" fill="freeze"/></rect><circle class="explosion" cx="696" cy="96" r="8" fill="#ff4500" opacity="0" filter="url(#explosion)"><animate attributeName="opacity" values="0;1;0" dur="0.5s" begin="laser-46-6.begin"/></circle></g><g class="contribution-group" id="contrib-47-0"><rect class="contribution-box" x="705" y="0" width="12" height="12" rx="2" fill="#006d32"><animate attributeName="opacity" from="1" to="0" dur="0.3s" begin="laser-47-0.begin" fill="freeze"/></rect><circle class="explosion" cx="711" cy="6" r="8" fill="#ff4500" opacity="0" filter="url(#explosion)"><animate attributeName="opacity" values="0;1;0" dur="0.5s" begin="laser-47-0.begin"/></circle></g><g class="contribution-group" id="contrib-47-1"><rect class="contribution-box" x="705" y="15" width="12" height="12" rx="2" fill="#0e4429"><animate attributeName="opacity" from="1" to="0" dur="0.3s" begin="laser-47-1.begin" fill="freeze"/></rect><circle class="explosion" cx="711" cy="21" r="8" fill="#ff4500" opacity="0" filter="url(#explosion)"><animate attributeName="opacity" values="0;1;0" dur="0.5s" begin="laser-47-1.begin"/></circle></g><g class="contribution-group" id="contrib-47-2"><rect class="contribution-box" x="705" y="30" width="12" height="12" rx="2" fill="#006d32"><animate attributeName="opacity" from="1" to="0" dur="0.3s" begin="laser-47-2.begin" fill="freeze"/></rect><circle class="explosion" cx="711" cy="36" r="8" fill="#ff4500" opacity="0" filter="url(#explosion)"><animate attributeName="opacity" values="0;1;0" dur="0.5s" begin="laser-47-2.begin"/></circle></g><g class="contribution-group" id="contrib-47-3"><rect class="contribution-box" x="705" y="45" width="12" height="12" rx="2" fill="#006d32"><animate attributeName="opacity" from="1" to="0" dur="0.3s" begin="laser-47-3.begin" fill="freeze"/></rect><circle class="explosion" cx="711" cy="51" r="8" fill="#ff4500" opacity="0" filter="url(#explosion)"><animate attributeName="opacity" values="0;1;0" dur="0.5s" begin="laser-47-3.begin"/></circle></g><g class="contribution-group" id="contrib-47-4"><rect class="contribution-box" x="705" y="60" width="12" height="12" rx="2" fill="#0e4429"><animate attributeName="opacity" from="1" to="0" dur="0.3s" begin="laser-47-4.begin" fill="freeze"/></rect><circle class="explosion" cx="711" cy="66" r="8" fill="#ff4500" opacity="0" filter="url(#explosion)"><animate attributeName="opacity" values="0;1;0" dur="0.5s" begin="laser-47-4.begin"/></circle></g><g class="contribution-group" id="contrib-47-5"><rect class="contribution-box" x="705" y="75" width="12" height="12" rx="2" fill="#39d353"><animate attributeName="opacity" from="1" to="0" dur="0.3s" begin="laser-47-5.begin" fill="freeze"/></rect><circle class="explosion" cx="711" cy="81" r="8" fill="#ff4500" opacity="0" filter="url(#explosion)"><animate attributeName="opacity" values="0;1;0" dur="0.5s" begin="laser-47-5.begin"/></circle></g><g class="contribution-group" id="contrib-47-6"><rect class="contribution-box" x="705" y="90" width="12" height="12" rx="2" fill="#006d32"><animate attributeName="opacity" from="1" to="0" dur="0.3s" begin="laser-47-6.begin" fill="freeze"/></rect><circle class="explosion" cx="711" cy="96" r="8" fill="#ff4500" opacity="0" filter="url(#explosion)"><animate attributeName="opacity" values="0;1;0" dur="0.5s" begin="laser-47-6.begin"/></circle></g><g class="contribution-group" id="contrib-48-0"><rect class="contribution-box" x="720" y="0" width="12" height="12" rx="2" fill="#006d32"><animate attributeName="opacity" from="1" to="0" dur="0.3s" begin="laser-48-0.begin" fill="freeze"/></rect><circle class="explosion" cx="726" cy="6" r="8" fill="#ff4500" opacity="0" filter="url(#explosion)"><animate attributeName="opacity" values="0;1;0" dur="0.5s" begin="laser-48-0.begin"/></circle></g><g class="contribution-group" id="contrib-48-1"><rect class="contribution-box" x="720" y="15" width="12" height="12" rx="2" fill="#0e4429"><animate attributeName="opacity" from="1" to="0" dur="0.3s" begin="laser-48-1.begin" fill="freeze"/></rect><circle class="explosion" cx="726" cy="21" r="8" fill="#ff4500" opacity="0" filter="url(#explosion)"><animate attributeName="opacity" values="0;1;0" dur="0.5s" begin="laser-48-1.begin"/></circle></g><g class="contribution-group" id="contrib-48-3"><rect class="contribution-box" x="720" y="45" width="12" height="12" rx="2" fill="#006d32"><animate attributeName="opacity" from="1" to="0" dur="0.3s" begin="laser-48-3.begin" fill="freeze"/></rect><circle class="explosion" cx="726" cy="51" r="8" fill="#ff4500" opacity="0" filter="url(#explosion)"><animate attributeName="opacity" values="0;1;0" dur="0.5s" begin="laser-48-3.begin"/></circle></g><g class="contribution-group" id="contrib-48-4"><rect class="contribution-box" x="720" y="60" width="12" height="12" rx="2" fill="#0e4429"><animate attributeName="opacity" from="1" to="0" dur="0.3s" begin="laser-48-4.begin" fill="freeze"/></rect><circle class="explosion" cx="726" cy="66" r="8" fill="#ff4500" opacity="0" filter="url(#explosion)"><animate attributeName="opacity" values="0;1;0" dur="0.5s" begin="laser-48-4.begin"/></circle></g><g class="contribution-group" id="contrib-48-5"><rect class="contribution-box" x="720" y="75" width="12" height="12" rx="2" fill="#0e4429"><animate attributeName="opacity" from="1" to="0" dur="0.3s" begin="laser-48-5.begin" fill="freeze"/></rect><circle class="explosion" cx="726" cy="81" r="8" fill="#ff4500" opacity="0" filter="url(#explosion)"><animate attributeName="opacity" values="0;1;0" dur="0.5s" begin="laser-48-5.begin"/></circle></g><g class="contribution-group" id="contrib-48-6"><rect class="contribution-box" x="720" y="90" width="12" height="12" rx="2" fill="#006d32"><animate attributeName="opacity" from="1" to="0" dur="0.3s" begin="laser-48-6.begin" fill="freeze"/></rect><circle class="explosion" cx="726" cy="96" r="8" fill="#ff4500" opacity="0" filter="url(#explosion)"><animate attributeName="opacity" values="0;1;0" dur="0.5s" begin="laser-48-6.begin"/></circle></g><g class="contribution-group" id="contrib-49-0"><rect class="contribution-box" x="735" y="0" width="12" height="12" rx="2" fill="#0e4429"><animate attributeName="opacity" from="1" to="0" dur="0.3s" begin="laser-49-0.begin" fill="freeze"/></rect><circle class="explosion" cx="741" cy="6" r="8" fill="#ff4500" opacity="0" filter="url(#explosion)"><animate attributeName="opacity" values="0;1;0" dur="0.5s" begin="laser-49-0.begin"/></circle></g><g class="contribution-group" id="contrib-49-1"><rect class="contribution-box" x="735" y="15" width="12" height="12" rx="2" fill="#26a641"><animate attributeName="opacity" from="1" to="0" dur="0.3s" begin="laser-49-1.begin" fill="freeze"/></rect><circle class="explosion" cx="741" cy="21" r="8" fill="#ff4500" opacity="0" filter="url(#explosion)"><animate attributeName="opacity" values="0;1;0" dur="0.5s" begin="laser-49-1.begin"/></circle></g><g class="contribution-group" id="contrib-49-2"><rect class="contribution-box" x="735" y="30" width="12" height="12" rx="2" fill="#26a641"><animate attributeName="opacity" from="1" to="0" dur="0.3s" begin="laser-49-2.begin" fill="freeze"/></rect><circle class="explosion" cx="741" cy="36" r="8" fill="#ff4500" opacity="0" filter="url(#explosion)"><animate attributeName="opacity" values="0;1;0" dur="0.5s" begin="laser-49-2.begin"/></circle></g><g class="contribution-group" id="contrib-49-3"><rect class="contribution-box" x="735" y="45" width="12" height="12" rx="2" fill="#0e4429"><animate attributeName="opacity" from="1" to="0" dur="0.3s" begin="laser-49-3.begin" fill="freeze"/></rect><circle class="explosion" cx="741" cy="51" r="8" fill="#ff4500" opacity="0" filter="url(#explosion)"><animate attributeName="opacity" values="0;1;0" dur="0.5s" begin="laser-49-3.begin"/></circle></g><g class="contribution-group" id="contrib-49-4"><rect class="contribution-box" x="735" y="60" width="12" height="12" rx="2" fill="#0e4429"><animate attributeName="opacity" from="1" to="0" dur="0.3s" begin="laser-49-4.begin" fill="freeze"/></rect><circle class="explosion" cx="741" cy="66" r="8" fill="#ff4500" opacity="0" filter="url(#explosion)"><animate attributeName="opacity" values="0;1;0" dur="0.5s" begin="laser-49-4.begin"/></circle></g><g class="contribution-group" id="contrib-49-5"><rect class="contribution-box" x="735" y="75" width="12" height="12" rx="2" fill="#0e4429"><animate attributeName="opacity" from="1" to="0" dur="0.3s" begin="laser-49-5.begin" fill="freeze"/></rect><circle class="explosion" cx="741" cy="81" r="8" fill="#ff4500" opacity="0" filter="url(#explosion)"><animate attributeName="opacity" values="0;1;0" dur="0.5s" begin="laser-49-5.begin"/></circle></g><g class="contribution-group" id="contrib-49-6"><rect class="contribution-box" x="735" y="90" width="12" height="12" rx="2" fill="#0e4429"><animate attributeName="opacity" from="1" to="0" dur="0.3s" begin="laser-49-6.begin" fill="freeze"/></rect><circle class="explosion" cx="741" cy="96" r="8" fill="#ff4500" opacity="0" filter="url(#explosion)"><animate attributeName="opacity" values="0;1;0" dur="0.5s" begin="laser-49-6.begin"/></circle></g><g class="contribution-group" id="contrib-50-0"><rect class="contribution-box" x="750" y="0" width="12" height="12" rx="2" fill="#006d32"><animate attributeName="opacity" from="1" to="0" dur="0.3s" begin="laser-50-0.begin" fill="freeze"/></rect><circle class="explosion" cx="756" cy="6" r="8" fill="#ff4500" opacity="0" filter="url(#explosion)"><animate attributeName="opacity" values="0;1;0" dur="0.5s" begin="laser-50-0.begin"/></circle></g><g class="contribution-group" id="contrib-50-1"><rect class="contribution-box" x="750" y="15" width="12" height="12" rx="2" fill="#0e4429"><animate attributeName="opacity" from="1" to="0" dur="0.3s" begin="laser-50-1.begin" fill="freeze"/></rect><circle class="explosion" cx="756" cy="21" r="8" fill="#ff4500" opacity="0" filter="url(#explosion)"><animate attributeName="opacity" values="0;1;0" dur="0.5s" begin="laser-50-1.begin"/></circle></g><g class="contribution-group" id="contrib-50-2"><rect class="contribution-box" x="750" y="30" width="12" height="12" rx="2" fill="#006d32"><animate attributeName="opacity" from="1" to="0" dur="0.3s" begin="laser-50-2.begin" fill="freeze"/></rect><circle class="explosion" cx="756" cy="36" r="8" fill="#ff4500" opacity="0" filter="url(#explosion)"><animate attributeName="opacity" values="0;1;0" dur="0.5s" begin="laser-50-2.begin"/></circle></g><g class="contribution-group" id="contrib-50-3"><rect class="contribution-box" x="750" y="45" width="12" height="12" rx="2" fill="#0e4429"><animate attributeName="opacity" from="1" to="0" dur="0.3s" begin="laser-50-3.begin" fill="freeze"/></rect><circle class="explosion" cx="756" cy="51" r="8" fill="#ff4500" opacity="0" filter="url(#explosion)"><animate attributeName="opacity" values="0;1;0" dur="0.5s" begin="laser-50-3.begin"/></circle></g><g class="contribution-group" id="contrib-50-4"><rect class="contribution-box" x="750" y="60" width="12" height="12" rx="2" fill="#006d32"><animate attributeName="opacity" from="1" to="0" dur="0.3s" begin="laser-50-4.begin" fill="freeze"/></rect><circle class="explosion" cx="756" cy="66" r="8" fill="#ff4500" opacity="0" filter="url(#explosion)"><animate attributeName="opacity" values="0;1;0" dur="0.5s" begin="laser-50-4.begin"/></circle></g><g class="contribution-group" id="contrib-50-5"><rect class="contribution-box" x="750" y="75" width="12" height="12" rx="2" fill="#26a641"><animate attributeName="opacity" from="1" to="0" dur="0.3s" begin="laser-50-5.begin" fill="freeze"/></rect><circle class="explosion" cx="756" cy="81" r="8" fill="#ff4500" opacity="0" filter="url(#explosion)"><animate attributeName="opacity" values="0;1;0" dur="0.5s" begin="laser-50-5.begin"/></circle></g><g class="contribution-group" id="contrib-50-6"><rect class="contribution-box" x="750" y="90" width="12" height="12" rx="2" fill="#39d353"><animate attributeName="opacity" from="1" to="0" dur="0.3s" begin="laser-50-6.begin" fill="freeze"/></rect><circle class="explosion" cx="756" cy="96" r="8" fill="#ff4500" opacity="0" filter="url(#explosion)"><animate attributeName="opacity" values="0;1;0" dur="0.5s" begin="laser-50-6.begin"/></circle></g><g class="contribution-group" id="contrib-51-0"><rect class="contribution-box" x="765" y="0" width="12" height="12" rx="2" fill="#26a641"><animate attributeName="opacity" from="1" to="0" dur="0.3s" begin="laser-51-0.begin" fill="freeze"/></rect><circle class="explosion" cx="771" cy="6" r="8" fill="#ff4500" opacity="0" filter="url(#explosion)"><animate attributeName="opacity" values="0;1;0" dur="0.5s" begin="laser-51-0.begin"/></circle></g><g class="contribution-group" id="contrib-51-1"><rect class="contribution-box" x="765" y="15" width="12" height="12" rx="2" fill="#006d32"><animate attributeName="opacity" from="1" to="0" dur="0.3s" begin="laser-51-1.begin" fill="freeze"/></rect><circle class="explosion" cx="771" cy="21" r="8" fill="#ff4500" opacity="0" filter="url(#explosion)"><animate attributeName="opacity" values="0;1;0" dur="0.5s" begin="laser-51-1.begin"/></circle></g><g class="contribution-group" id="contrib-51-2"><rect class="contribution-box" x="765" y="30" width="12" height="12" rx="2" fill="#26a641"><animate attributeName="opacity" from="1" to="0" dur="0.3s" begin="laser-51-2.begin" fill="freeze"/></rect><circle class="explosion" cx="771" cy="36" r="8" fill="#ff4500" opacity="0" filter="url(#explosion)"><animate attributeName="opacity" values="0;1;0" dur="0.5s" begin="laser-51-2.begin"/></circle></g><g class="contribution-group" id="contrib-51-3"><rect class="contribution-box" x="765" y="45" width="12" height="12" rx="2" fill="#006d32"><animate attributeName="opacity" from="1" to="0" dur="0.3s" begin="laser-51-3.begin" fill="freeze"/></rect><circle class="explosion" cx="771" cy="51" r="8" fill="#ff4500" opacity="0" filter="url(#explosion)"><animate attributeName="opacity" values="0;1;0" dur="0.5s" begin="laser-51-3.begin"/></circle></g><g class="contribution-group" id="contrib-51-4"><rect class="contribution-box" x="765" y="60" width="12" height="12" rx="2" fill="#26a641"><animate attributeName="opacity" from="1" to="0" dur="0.3s" begin="laser-51-4.begin" fill="freeze"/></rect><circle class="explosion" cx="771" cy="66" r="8" fill="#ff4500" opacity="0" filter="url(#explosion)"><animate attributeName="opacity" values="0;1;0" dur="0.5s" begin="laser-51-4.begin"/></circle></g><g class="contribution-group" id="contrib-51-5"><rect class="contribution-box" x="765" y="75" width="12" height="12" rx="2" fill="#0e4429"><animate attributeName="opacity" from="1" to="0" dur="0.3s" begin="laser-51-5.begin" fill="freeze"/></rect><circle class="explosion" cx="771" cy="81" r="8" fill="#ff4500" opacity="0" filter="url(#explosion)"><animate attributeName="opacity" values="0;1;0" dur="0.5s" begin="laser-51-5.begin"/></circle></g><g class="contribution-group" id="contrib-51-6"><rect class="contribution-box" x="765" y="90" width="12" height="12" rx="2" fill="#39d353"><animate attributeName="opacity" from="1" to="0" dur="0.3s" begin="laser-51-6.begin" fill="freeze"/></rect><circle class="explosion" cx="771" cy="96" r="8" fill="#ff4500" opacity="0" filter="url(#explosion)"><animate attributeName="opacity" values="0;1;0" dur="0.5s" begin="laser-51-6.begin"/></circle></g><g class="contribution-group" id="contrib-52-0"><rect class="contribution-box" x="780" y="0" width="12" height="12" rx="2" fill="#39d353"><animate attributeName="opacity" from="1" to="0" dur="0.3s" begin="laser-52-0.begin" fill="freeze"/></rect><circle class="explosion" cx="786" cy="6" r="8" fill="#ff4500" opacity="0" filter="url(#explosion)"><animate attributeName="opacity" values="0;1;0" dur="0.5s" begin="laser-52-0.begin"/></circle></g><g class="contribution-group" id="contrib-52-1"><rect class="contribution-box" x="780" y="15" width="12" height="12" rx="2" fill="#39d353"><animate attributeName="opacity" from="1" to="0" dur="0.3s" begin="laser-52-1.begin" fill="freeze"/></rect><circle class="explosion" cx="786" cy="21" r="8" fill="#ff4500" opacity="0" filter="url(#explosion)"><animate attributeName="opacity" values="0;1;0" dur="0.5s" begin="laser-52-1.begin"/></circle></g><g class="contribution-group" id="contrib-52-2"><rect class="contribution-box" x="780" y="30" width="12" height="12" rx="2" fill="#26a641"><animate attributeName="opacity" from="1" to="0" dur="0.3s" begin="laser-52-2.begin" fill="freeze"/></rect><circle class="explosion" cx="786" cy="36" r="8" fill="#ff4500" opacity="0" filter="url(#explosion)"><animate attributeName="opacity" values="0;1;0" dur="0.5s" begin="laser-52-2.begin"/></circle></g>
+    <g class="contribution-group" id="contrib-6-0"><rect class="contribution-box" x="90" y="0" width="12" height="12" rx="2" fill="#0e4429"/></g><g class="contribution-group" id="contrib-21-2"><rect class="contribution-box" x="315" y="30" width="12" height="12" rx="2" fill="#0e4429"/></g><g class="contribution-group" id="contrib-24-4"><rect class="contribution-box" x="360" y="60" width="12" height="12" rx="2" fill="#0e4429"/></g><g class="contribution-group" id="contrib-37-0"><rect class="contribution-box" x="555" y="0" width="12" height="12" rx="2" fill="#0e4429"/></g><g class="contribution-group" id="contrib-38-2"><rect class="contribution-box" x="570" y="30" width="12" height="12" rx="2" fill="#0e4429"/></g><g class="contribution-group" id="contrib-38-3"><rect class="contribution-box" x="570" y="45" width="12" height="12" rx="2" fill="#006d32"/></g><g class="contribution-group" id="contrib-38-4"><rect class="contribution-box" x="570" y="60" width="12" height="12" rx="2" fill="#0e4429"/></g><g class="contribution-group" id="contrib-38-5"><rect class="contribution-box" x="570" y="75" width="12" height="12" rx="2" fill="#006d32"/></g><g class="contribution-group" id="contrib-38-6"><rect class="contribution-box" x="570" y="90" width="12" height="12" rx="2" fill="#006d32"/></g><g class="contribution-group" id="contrib-39-0"><rect class="contribution-box" x="585" y="0" width="12" height="12" rx="2" fill="#0e4429"/></g><g class="contribution-group" id="contrib-39-1"><rect class="contribution-box" x="585" y="15" width="12" height="12" rx="2" fill="#39d353"/></g><g class="contribution-group" id="contrib-39-2"><rect class="contribution-box" x="585" y="30" width="12" height="12" rx="2" fill="#006d32"/></g><g class="contribution-group" id="contrib-39-3"><rect class="contribution-box" x="585" y="45" width="12" height="12" rx="2" fill="#0e4429"/></g><g class="contribution-group" id="contrib-39-4"><rect class="contribution-box" x="585" y="60" width="12" height="12" rx="2" fill="#26a641"/></g><g class="contribution-group" id="contrib-39-5"><rect class="contribution-box" x="585" y="75" width="12" height="12" rx="2" fill="#006d32"/></g><g class="contribution-group" id="contrib-39-6"><rect class="contribution-box" x="585" y="90" width="12" height="12" rx="2" fill="#0e4429"/></g><g class="contribution-group" id="contrib-40-0"><rect class="contribution-box" x="600" y="0" width="12" height="12" rx="2" fill="#0e4429"/></g><g class="contribution-group" id="contrib-40-1"><rect class="contribution-box" x="600" y="15" width="12" height="12" rx="2" fill="#006d32"/></g><g class="contribution-group" id="contrib-40-2"><rect class="contribution-box" x="600" y="30" width="12" height="12" rx="2" fill="#006d32"/></g><g class="contribution-group" id="contrib-40-3"><rect class="contribution-box" x="600" y="45" width="12" height="12" rx="2" fill="#006d32"/></g><g class="contribution-group" id="contrib-40-4"><rect class="contribution-box" x="600" y="60" width="12" height="12" rx="2" fill="#0e4429"/></g><g class="contribution-group" id="contrib-40-5"><rect class="contribution-box" x="600" y="75" width="12" height="12" rx="2" fill="#0e4429"/></g><g class="contribution-group" id="contrib-40-6"><rect class="contribution-box" x="600" y="90" width="12" height="12" rx="2" fill="#0e4429"/></g><g class="contribution-group" id="contrib-41-0"><rect class="contribution-box" x="615" y="0" width="12" height="12" rx="2" fill="#0e4429"/></g><g class="contribution-group" id="contrib-41-1"><rect class="contribution-box" x="615" y="15" width="12" height="12" rx="2" fill="#006d32"/></g><g class="contribution-group" id="contrib-41-2"><rect class="contribution-box" x="615" y="30" width="12" height="12" rx="2" fill="#006d32"/></g><g class="contribution-group" id="contrib-41-3"><rect class="contribution-box" x="615" y="45" width="12" height="12" rx="2" fill="#006d32"/></g><g class="contribution-group" id="contrib-41-4"><rect class="contribution-box" x="615" y="60" width="12" height="12" rx="2" fill="#006d32"/></g><g class="contribution-group" id="contrib-41-5"><rect class="contribution-box" x="615" y="75" width="12" height="12" rx="2" fill="#0e4429"/></g><g class="contribution-group" id="contrib-41-6"><rect class="contribution-box" x="615" y="90" width="12" height="12" rx="2" fill="#0e4429"/></g><g class="contribution-group" id="contrib-42-0"><rect class="contribution-box" x="630" y="0" width="12" height="12" rx="2" fill="#0e4429"/></g><g class="contribution-group" id="contrib-42-1"><rect class="contribution-box" x="630" y="15" width="12" height="12" rx="2" fill="#006d32"/></g><g class="contribution-group" id="contrib-42-2"><rect class="contribution-box" x="630" y="30" width="12" height="12" rx="2" fill="#0e4429"/></g><g class="contribution-group" id="contrib-42-3"><rect class="contribution-box" x="630" y="45" width="12" height="12" rx="2" fill="#006d32"/></g><g class="contribution-group" id="contrib-42-4"><rect class="contribution-box" x="630" y="60" width="12" height="12" rx="2" fill="#0e4429"/></g><g class="contribution-group" id="contrib-42-5"><rect class="contribution-box" x="630" y="75" width="12" height="12" rx="2" fill="#006d32"/></g><g class="contribution-group" id="contrib-42-6"><rect class="contribution-box" x="630" y="90" width="12" height="12" rx="2" fill="#0e4429"/></g><g class="contribution-group" id="contrib-43-0"><rect class="contribution-box" x="645" y="0" width="12" height="12" rx="2" fill="#0e4429"/></g><g class="contribution-group" id="contrib-43-1"><rect class="contribution-box" x="645" y="15" width="12" height="12" rx="2" fill="#006d32"/></g><g class="contribution-group" id="contrib-43-2"><rect class="contribution-box" x="645" y="30" width="12" height="12" rx="2" fill="#006d32"/></g><g class="contribution-group" id="contrib-43-3"><rect class="contribution-box" x="645" y="45" width="12" height="12" rx="2" fill="#006d32"/></g><g class="contribution-group" id="contrib-43-4"><rect class="contribution-box" x="645" y="60" width="12" height="12" rx="2" fill="#0e4429"/></g><g class="contribution-group" id="contrib-43-5"><rect class="contribution-box" x="645" y="75" width="12" height="12" rx="2" fill="#0e4429"/></g><g class="contribution-group" id="contrib-43-6"><rect class="contribution-box" x="645" y="90" width="12" height="12" rx="2" fill="#0e4429"/></g><g class="contribution-group" id="contrib-44-1"><rect class="contribution-box" x="660" y="15" width="12" height="12" rx="2" fill="#0e4429"/></g><g class="contribution-group" id="contrib-44-2"><rect class="contribution-box" x="660" y="30" width="12" height="12" rx="2" fill="#0e4429"/></g><g class="contribution-group" id="contrib-44-3"><rect class="contribution-box" x="660" y="45" width="12" height="12" rx="2" fill="#006d32"/></g><g class="contribution-group" id="contrib-44-4"><rect class="contribution-box" x="660" y="60" width="12" height="12" rx="2" fill="#0e4429"/></g><g class="contribution-group" id="contrib-44-5"><rect class="contribution-box" x="660" y="75" width="12" height="12" rx="2" fill="#0e4429"/></g><g class="contribution-group" id="contrib-44-6"><rect class="contribution-box" x="660" y="90" width="12" height="12" rx="2" fill="#0e4429"/></g><g class="contribution-group" id="contrib-45-0"><rect class="contribution-box" x="675" y="0" width="12" height="12" rx="2" fill="#0e4429"/></g><g class="contribution-group" id="contrib-45-1"><rect class="contribution-box" x="675" y="15" width="12" height="12" rx="2" fill="#0e4429"/></g><g class="contribution-group" id="contrib-45-2"><rect class="contribution-box" x="675" y="30" width="12" height="12" rx="2" fill="#0e4429"/></g><g class="contribution-group" id="contrib-45-3"><rect class="contribution-box" x="675" y="45" width="12" height="12" rx="2" fill="#006d32"/></g><g class="contribution-group" id="contrib-45-4"><rect class="contribution-box" x="675" y="60" width="12" height="12" rx="2" fill="#0e4429"/></g><g class="contribution-group" id="contrib-45-5"><rect class="contribution-box" x="675" y="75" width="12" height="12" rx="2" fill="#0e4429"/></g><g class="contribution-group" id="contrib-45-6"><rect class="contribution-box" x="675" y="90" width="12" height="12" rx="2" fill="#0e4429"/></g><g class="contribution-group" id="contrib-46-0"><rect class="contribution-box" x="690" y="0" width="12" height="12" rx="2" fill="#006d32"/></g><g class="contribution-group" id="contrib-46-1"><rect class="contribution-box" x="690" y="15" width="12" height="12" rx="2" fill="#0e4429"/></g><g class="contribution-group" id="contrib-46-2"><rect class="contribution-box" x="690" y="30" width="12" height="12" rx="2" fill="#006d32"/></g><g class="contribution-group" id="contrib-46-3"><rect class="contribution-box" x="690" y="45" width="12" height="12" rx="2" fill="#006d32"/></g><g class="contribution-group" id="contrib-46-4"><rect class="contribution-box" x="690" y="60" width="12" height="12" rx="2" fill="#006d32"/></g><g class="contribution-group" id="contrib-46-5"><rect class="contribution-box" x="690" y="75" width="12" height="12" rx="2" fill="#0e4429"/></g><g class="contribution-group" id="contrib-46-6"><rect class="contribution-box" x="690" y="90" width="12" height="12" rx="2" fill="#0e4429"/></g><g class="contribution-group" id="contrib-47-0"><rect class="contribution-box" x="705" y="0" width="12" height="12" rx="2" fill="#006d32"/></g><g class="contribution-group" id="contrib-47-1"><rect class="contribution-box" x="705" y="15" width="12" height="12" rx="2" fill="#0e4429"/></g><g class="contribution-group" id="contrib-47-2"><rect class="contribution-box" x="705" y="30" width="12" height="12" rx="2" fill="#006d32"/></g><g class="contribution-group" id="contrib-47-3"><rect class="contribution-box" x="705" y="45" width="12" height="12" rx="2" fill="#006d32"/></g><g class="contribution-group" id="contrib-47-4"><rect class="contribution-box" x="705" y="60" width="12" height="12" rx="2" fill="#0e4429"/></g><g class="contribution-group" id="contrib-47-5"><rect class="contribution-box" x="705" y="75" width="12" height="12" rx="2" fill="#39d353"/></g><g class="contribution-group" id="contrib-47-6"><rect class="contribution-box" x="705" y="90" width="12" height="12" rx="2" fill="#006d32"/></g><g class="contribution-group" id="contrib-48-0"><rect class="contribution-box" x="720" y="0" width="12" height="12" rx="2" fill="#006d32"/></g><g class="contribution-group" id="contrib-48-1"><rect class="contribution-box" x="720" y="15" width="12" height="12" rx="2" fill="#0e4429"/></g><g class="contribution-group" id="contrib-48-3"><rect class="contribution-box" x="720" y="45" width="12" height="12" rx="2" fill="#006d32"/></g><g class="contribution-group" id="contrib-48-4"><rect class="contribution-box" x="720" y="60" width="12" height="12" rx="2" fill="#0e4429"/></g><g class="contribution-group" id="contrib-48-5"><rect class="contribution-box" x="720" y="75" width="12" height="12" rx="2" fill="#0e4429"/></g><g class="contribution-group" id="contrib-48-6"><rect class="contribution-box" x="720" y="90" width="12" height="12" rx="2" fill="#006d32"/></g><g class="contribution-group" id="contrib-49-0"><rect class="contribution-box" x="735" y="0" width="12" height="12" rx="2" fill="#0e4429"/></g><g class="contribution-group" id="contrib-49-1"><rect class="contribution-box" x="735" y="15" width="12" height="12" rx="2" fill="#26a641"/></g><g class="contribution-group" id="contrib-49-2"><rect class="contribution-box" x="735" y="30" width="12" height="12" rx="2" fill="#26a641"/></g><g class="contribution-group" id="contrib-49-3"><rect class="contribution-box" x="735" y="45" width="12" height="12" rx="2" fill="#0e4429"/></g><g class="contribution-group" id="contrib-49-4"><rect class="contribution-box" x="735" y="60" width="12" height="12" rx="2" fill="#0e4429"/></g><g class="contribution-group" id="contrib-49-5"><rect class="contribution-box" x="735" y="75" width="12" height="12" rx="2" fill="#0e4429"/></g><g class="contribution-group" id="contrib-49-6"><rect class="contribution-box" x="735" y="90" width="12" height="12" rx="2" fill="#0e4429"/></g><g class="contribution-group" id="contrib-50-0"><rect class="contribution-box" x="750" y="0" width="12" height="12" rx="2" fill="#006d32"/></g><g class="contribution-group" id="contrib-50-1"><rect class="contribution-box" x="750" y="15" width="12" height="12" rx="2" fill="#0e4429"/></g><g class="contribution-group" id="contrib-50-2"><rect class="contribution-box" x="750" y="30" width="12" height="12" rx="2" fill="#006d32"/></g><g class="contribution-group" id="contrib-50-3"><rect class="contribution-box" x="750" y="45" width="12" height="12" rx="2" fill="#0e4429"/></g><g class="contribution-group" id="contrib-50-4"><rect class="contribution-box" x="750" y="60" width="12" height="12" rx="2" fill="#006d32"/></g><g class="contribution-group" id="contrib-50-5"><rect class="contribution-box" x="750" y="75" width="12" height="12" rx="2" fill="#26a641"/></g><g class="contribution-group" id="contrib-50-6"><rect class="contribution-box" x="750" y="90" width="12" height="12" rx="2" fill="#39d353"/></g><g class="contribution-group" id="contrib-51-0"><rect class="contribution-box" x="765" y="0" width="12" height="12" rx="2" fill="#26a641"/></g><g class="contribution-group" id="contrib-51-1"><rect class="contribution-box" x="765" y="15" width="12" height="12" rx="2" fill="#006d32"/></g><g class="contribution-group" id="contrib-51-2"><rect class="contribution-box" x="765" y="30" width="12" height="12" rx="2" fill="#26a641"/></g><g class="contribution-group" id="contrib-51-3"><rect class="contribution-box" x="765" y="45" width="12" height="12" rx="2" fill="#006d32"/></g><g class="contribution-group" id="contrib-51-4"><rect class="contribution-box" x="765" y="60" width="12" height="12" rx="2" fill="#26a641"/></g><g class="contribution-group" id="contrib-51-5"><rect class="contribution-box" x="765" y="75" width="12" height="12" rx="2" fill="#0e4429"/></g><g class="contribution-group" id="contrib-51-6"><rect class="contribution-box" x="765" y="90" width="12" height="12" rx="2" fill="#39d353"/></g><g class="contribution-group" id="contrib-52-0"><rect class="contribution-box" x="780" y="0" width="12" height="12" rx="2" fill="#39d353"/></g><g class="contribution-group" id="contrib-52-1"><rect class="contribution-box" x="780" y="15" width="12" height="12" rx="2" fill="#39d353"/></g><g class="contribution-group" id="contrib-52-2"><rect class="contribution-box" x="780" y="30" width="12" height="12" rx="2" fill="#26a641"/></g>
     </g>
     
     <!-- Space Invader Ship -->
-    <g class="spaceship" transform="translate(0,270)">
-        <path d="M-20,0 L0,-20 L20,0 L10,10 L-10,10 Z" fill="#61dafb"/>
-        <circle cx="0" cy="-5" r="3" fill="#ff0000"/>
-        
-        <!-- Auto-firing lasers -->
-        <line class="laser" x1="0" y1="0" x2="0" y2="-220"
-                        stroke="#ff0000" stroke-width="2" opacity="0">
-                        <animate id="laser-6-0"
-                            attributeName="opacity"
-                            values="0;1;0"
-                            dur="0.3s"
-                            begin="6s"
-                            repeatCount="1"/>
-                        </line><line class="laser" x1="0" y1="0" x2="0" y2="-220"
-                        stroke="#ff0000" stroke-width="2" opacity="0">
-                        <animate id="laser-21-2"
-                            attributeName="opacity"
-                            values="0;1;0"
-                            dur="0.3s"
-                            begin="23s"
-                            repeatCount="1"/>
-                        </line><line class="laser" x1="0" y1="0" x2="0" y2="-220"
-                        stroke="#ff0000" stroke-width="2" opacity="0">
-                        <animate id="laser-24-4"
-                            attributeName="opacity"
-                            values="0;1;0"
-                            dur="0.3s"
-                            begin="28s"
-                            repeatCount="1"/>
-                        </line><line class="laser" x1="0" y1="0" x2="0" y2="-220"
-                        stroke="#ff0000" stroke-width="2" opacity="0">
-                        <animate id="laser-37-0"
-                            attributeName="opacity"
-                            values="0;1;0"
-                            dur="0.3s"
-                            begin="37s"
-                            repeatCount="1"/>
-                        </line><line class="laser" x1="0" y1="0" x2="0" y2="-220"
-                        stroke="#ff0000" stroke-width="2" opacity="0">
-                        <animate id="laser-38-2"
-                            attributeName="opacity"
-                            values="0;1;0"
-                            dur="0.3s"
-                            begin="40s"
-                            repeatCount="1"/>
-                        </line><line class="laser" x1="0" y1="0" x2="0" y2="-220"
-                        stroke="#ff0000" stroke-width="2" opacity="0">
-                        <animate id="laser-38-3"
-                            attributeName="opacity"
-                            values="0;1;0"
-                            dur="0.3s"
-                            begin="41s"
-                            repeatCount="1"/>
-                        </line><line class="laser" x1="0" y1="0" x2="0" y2="-220"
-                        stroke="#ff0000" stroke-width="2" opacity="0">
-                        <animate id="laser-38-4"
-                            attributeName="opacity"
-                            values="0;1;0"
-                            dur="0.3s"
-                            begin="42s"
-                            repeatCount="1"/>
-                        </line><line class="laser" x1="0" y1="0" x2="0" y2="-220"
-                        stroke="#ff0000" stroke-width="2" opacity="0">
-                        <animate id="laser-38-5"
-                            attributeName="opacity"
-                            values="0;1;0"
-                            dur="0.3s"
-                            begin="43s"
-                            repeatCount="1"/>
-                        </line><line class="laser" x1="0" y1="0" x2="0" y2="-220"
-                        stroke="#ff0000" stroke-width="2" opacity="0">
-                        <animate id="laser-38-6"
-                            attributeName="opacity"
-                            values="0;1;0"
-                            dur="0.3s"
-                            begin="44s"
-                            repeatCount="1"/>
-                        </line><line class="laser" x1="0" y1="0" x2="0" y2="-220"
-                        stroke="#ff0000" stroke-width="2" opacity="0">
-                        <animate id="laser-39-0"
-                            attributeName="opacity"
-                            values="0;1;0"
-                            dur="0.3s"
-                            begin="39s"
-                            repeatCount="1"/>
-                        </line><line class="laser" x1="0" y1="0" x2="0" y2="-220"
-                        stroke="#ff0000" stroke-width="2" opacity="0">
-                        <animate id="laser-39-1"
-                            attributeName="opacity"
-                            values="0;1;0"
-                            dur="0.3s"
-                            begin="40s"
-                            repeatCount="1"/>
-                        </line><line class="laser" x1="0" y1="0" x2="0" y2="-220"
-                        stroke="#ff0000" stroke-width="2" opacity="0">
-                        <animate id="laser-39-2"
-                            attributeName="opacity"
-                            values="0;1;0"
-                            dur="0.3s"
-                            begin="41s"
-                            repeatCount="1"/>
-                        </line><line class="laser" x1="0" y1="0" x2="0" y2="-220"
-                        stroke="#ff0000" stroke-width="2" opacity="0">
-                        <animate id="laser-39-3"
-                            attributeName="opacity"
-                            values="0;1;0"
-                            dur="0.3s"
-                            begin="42s"
-                            repeatCount="1"/>
-                        </line><line class="laser" x1="0" y1="0" x2="0" y2="-220"
-                        stroke="#ff0000" stroke-width="2" opacity="0">
-                        <animate id="laser-39-4"
-                            attributeName="opacity"
-                            values="0;1;0"
-                            dur="0.3s"
-                            begin="43s"
-                            repeatCount="1"/>
-                        </line><line class="laser" x1="0" y1="0" x2="0" y2="-220"
-                        stroke="#ff0000" stroke-width="2" opacity="0">
-                        <animate id="laser-39-5"
-                            attributeName="opacity"
-                            values="0;1;0"
-                            dur="0.3s"
-                            begin="44s"
-                            repeatCount="1"/>
-                        </line><line class="laser" x1="0" y1="0" x2="0" y2="-220"
-                        stroke="#ff0000" stroke-width="2" opacity="0">
-                        <animate id="laser-39-6"
-                            attributeName="opacity"
-                            values="0;1;0"
-                            dur="0.3s"
-                            begin="45s"
-                            repeatCount="1"/>
-                        </line><line class="laser" x1="0" y1="0" x2="0" y2="-220"
-                        stroke="#ff0000" stroke-width="2" opacity="0">
-                        <animate id="laser-40-0"
-                            attributeName="opacity"
-                            values="0;1;0"
-                            dur="0.3s"
-                            begin="40s"
-                            repeatCount="1"/>
-                        </line><line class="laser" x1="0" y1="0" x2="0" y2="-220"
-                        stroke="#ff0000" stroke-width="2" opacity="0">
-                        <animate id="laser-40-1"
-                            attributeName="opacity"
-                            values="0;1;0"
-                            dur="0.3s"
-                            begin="41s"
-                            repeatCount="1"/>
-                        </line><line class="laser" x1="0" y1="0" x2="0" y2="-220"
-                        stroke="#ff0000" stroke-width="2" opacity="0">
-                        <animate id="laser-40-2"
-                            attributeName="opacity"
-                            values="0;1;0"
-                            dur="0.3s"
-                            begin="42s"
-                            repeatCount="1"/>
-                        </line><line class="laser" x1="0" y1="0" x2="0" y2="-220"
-                        stroke="#ff0000" stroke-width="2" opacity="0">
-                        <animate id="laser-40-3"
-                            attributeName="opacity"
-                            values="0;1;0"
-                            dur="0.3s"
-                            begin="43s"
-                            repeatCount="1"/>
-                        </line><line class="laser" x1="0" y1="0" x2="0" y2="-220"
-                        stroke="#ff0000" stroke-width="2" opacity="0">
-                        <animate id="laser-40-4"
-                            attributeName="opacity"
-                            values="0;1;0"
-                            dur="0.3s"
-                            begin="44s"
-                            repeatCount="1"/>
-                        </line><line class="laser" x1="0" y1="0" x2="0" y2="-220"
-                        stroke="#ff0000" stroke-width="2" opacity="0">
-                        <animate id="laser-40-5"
-                            attributeName="opacity"
-                            values="0;1;0"
-                            dur="0.3s"
-                            begin="45s"
-                            repeatCount="1"/>
-                        </line><line class="laser" x1="0" y1="0" x2="0" y2="-220"
-                        stroke="#ff0000" stroke-width="2" opacity="0">
-                        <animate id="laser-40-6"
-                            attributeName="opacity"
-                            values="0;1;0"
-                            dur="0.3s"
-                            begin="46s"
-                            repeatCount="1"/>
-                        </line><line class="laser" x1="0" y1="0" x2="0" y2="-220"
-                        stroke="#ff0000" stroke-width="2" opacity="0">
-                        <animate id="laser-41-0"
-                            attributeName="opacity"
-                            values="0;1;0"
-                            dur="0.3s"
-                            begin="41s"
-                            repeatCount="1"/>
-                        </line><line class="laser" x1="0" y1="0" x2="0" y2="-220"
-                        stroke="#ff0000" stroke-width="2" opacity="0">
-                        <animate id="laser-41-1"
-                            attributeName="opacity"
-                            values="0;1;0"
-                            dur="0.3s"
-                            begin="42s"
-                            repeatCount="1"/>
-                        </line><line class="laser" x1="0" y1="0" x2="0" y2="-220"
-                        stroke="#ff0000" stroke-width="2" opacity="0">
-                        <animate id="laser-41-2"
-                            attributeName="opacity"
-                            values="0;1;0"
-                            dur="0.3s"
-                            begin="43s"
-                            repeatCount="1"/>
-                        </line><line class="laser" x1="0" y1="0" x2="0" y2="-220"
-                        stroke="#ff0000" stroke-width="2" opacity="0">
-                        <animate id="laser-41-3"
-                            attributeName="opacity"
-                            values="0;1;0"
-                            dur="0.3s"
-                            begin="44s"
-                            repeatCount="1"/>
-                        </line><line class="laser" x1="0" y1="0" x2="0" y2="-220"
-                        stroke="#ff0000" stroke-width="2" opacity="0">
-                        <animate id="laser-41-4"
-                            attributeName="opacity"
-                            values="0;1;0"
-                            dur="0.3s"
-                            begin="45s"
-                            repeatCount="1"/>
-                        </line><line class="laser" x1="0" y1="0" x2="0" y2="-220"
-                        stroke="#ff0000" stroke-width="2" opacity="0">
-                        <animate id="laser-41-5"
-                            attributeName="opacity"
-                            values="0;1;0"
-                            dur="0.3s"
-                            begin="46s"
-                            repeatCount="1"/>
-                        </line><line class="laser" x1="0" y1="0" x2="0" y2="-220"
-                        stroke="#ff0000" stroke-width="2" opacity="0">
-                        <animate id="laser-41-6"
-                            attributeName="opacity"
-                            values="0;1;0"
-                            dur="0.3s"
-                            begin="47s"
-                            repeatCount="1"/>
-                        </line><line class="laser" x1="0" y1="0" x2="0" y2="-220"
-                        stroke="#ff0000" stroke-width="2" opacity="0">
-                        <animate id="laser-42-0"
-                            attributeName="opacity"
-                            values="0;1;0"
-                            dur="0.3s"
-                            begin="42s"
-                            repeatCount="1"/>
-                        </line><line class="laser" x1="0" y1="0" x2="0" y2="-220"
-                        stroke="#ff0000" stroke-width="2" opacity="0">
-                        <animate id="laser-42-1"
-                            attributeName="opacity"
-                            values="0;1;0"
-                            dur="0.3s"
-                            begin="43s"
-                            repeatCount="1"/>
-                        </line><line class="laser" x1="0" y1="0" x2="0" y2="-220"
-                        stroke="#ff0000" stroke-width="2" opacity="0">
-                        <animate id="laser-42-2"
-                            attributeName="opacity"
-                            values="0;1;0"
-                            dur="0.3s"
-                            begin="44s"
-                            repeatCount="1"/>
-                        </line><line class="laser" x1="0" y1="0" x2="0" y2="-220"
-                        stroke="#ff0000" stroke-width="2" opacity="0">
-                        <animate id="laser-42-3"
-                            attributeName="opacity"
-                            values="0;1;0"
-                            dur="0.3s"
-                            begin="45s"
-                            repeatCount="1"/>
-                        </line><line class="laser" x1="0" y1="0" x2="0" y2="-220"
-                        stroke="#ff0000" stroke-width="2" opacity="0">
-                        <animate id="laser-42-4"
-                            attributeName="opacity"
-                            values="0;1;0"
-                            dur="0.3s"
-                            begin="46s"
-                            repeatCount="1"/>
-                        </line><line class="laser" x1="0" y1="0" x2="0" y2="-220"
-                        stroke="#ff0000" stroke-width="2" opacity="0">
-                        <animate id="laser-42-5"
-                            attributeName="opacity"
-                            values="0;1;0"
-                            dur="0.3s"
-                            begin="47s"
-                            repeatCount="1"/>
-                        </line><line class="laser" x1="0" y1="0" x2="0" y2="-220"
-                        stroke="#ff0000" stroke-width="2" opacity="0">
-                        <animate id="laser-42-6"
-                            attributeName="opacity"
-                            values="0;1;0"
-                            dur="0.3s"
-                            begin="48s"
-                            repeatCount="1"/>
-                        </line><line class="laser" x1="0" y1="0" x2="0" y2="-220"
-                        stroke="#ff0000" stroke-width="2" opacity="0">
-                        <animate id="laser-43-0"
-                            attributeName="opacity"
-                            values="0;1;0"
-                            dur="0.3s"
-                            begin="43s"
-                            repeatCount="1"/>
-                        </line><line class="laser" x1="0" y1="0" x2="0" y2="-220"
-                        stroke="#ff0000" stroke-width="2" opacity="0">
-                        <animate id="laser-43-1"
-                            attributeName="opacity"
-                            values="0;1;0"
-                            dur="0.3s"
-                            begin="44s"
-                            repeatCount="1"/>
-                        </line><line class="laser" x1="0" y1="0" x2="0" y2="-220"
-                        stroke="#ff0000" stroke-width="2" opacity="0">
-                        <animate id="laser-43-2"
-                            attributeName="opacity"
-                            values="0;1;0"
-                            dur="0.3s"
-                            begin="45s"
-                            repeatCount="1"/>
-                        </line><line class="laser" x1="0" y1="0" x2="0" y2="-220"
-                        stroke="#ff0000" stroke-width="2" opacity="0">
-                        <animate id="laser-43-3"
-                            attributeName="opacity"
-                            values="0;1;0"
-                            dur="0.3s"
-                            begin="46s"
-                            repeatCount="1"/>
-                        </line><line class="laser" x1="0" y1="0" x2="0" y2="-220"
-                        stroke="#ff0000" stroke-width="2" opacity="0">
-                        <animate id="laser-43-4"
-                            attributeName="opacity"
-                            values="0;1;0"
-                            dur="0.3s"
-                            begin="47s"
-                            repeatCount="1"/>
-                        </line><line class="laser" x1="0" y1="0" x2="0" y2="-220"
-                        stroke="#ff0000" stroke-width="2" opacity="0">
-                        <animate id="laser-43-5"
-                            attributeName="opacity"
-                            values="0;1;0"
-                            dur="0.3s"
-                            begin="48s"
-                            repeatCount="1"/>
-                        </line><line class="laser" x1="0" y1="0" x2="0" y2="-220"
-                        stroke="#ff0000" stroke-width="2" opacity="0">
-                        <animate id="laser-43-6"
-                            attributeName="opacity"
-                            values="0;1;0"
-                            dur="0.3s"
-                            begin="49s"
-                            repeatCount="1"/>
-                        </line><line class="laser" x1="0" y1="0" x2="0" y2="-220"
-                        stroke="#ff0000" stroke-width="2" opacity="0">
-                        <animate id="laser-44-1"
-                            attributeName="opacity"
-                            values="0;1;0"
-                            dur="0.3s"
-                            begin="45s"
-                            repeatCount="1"/>
-                        </line><line class="laser" x1="0" y1="0" x2="0" y2="-220"
-                        stroke="#ff0000" stroke-width="2" opacity="0">
-                        <animate id="laser-44-2"
-                            attributeName="opacity"
-                            values="0;1;0"
-                            dur="0.3s"
-                            begin="46s"
-                            repeatCount="1"/>
-                        </line><line class="laser" x1="0" y1="0" x2="0" y2="-220"
-                        stroke="#ff0000" stroke-width="2" opacity="0">
-                        <animate id="laser-44-3"
-                            attributeName="opacity"
-                            values="0;1;0"
-                            dur="0.3s"
-                            begin="47s"
-                            repeatCount="1"/>
-                        </line><line class="laser" x1="0" y1="0" x2="0" y2="-220"
-                        stroke="#ff0000" stroke-width="2" opacity="0">
-                        <animate id="laser-44-4"
-                            attributeName="opacity"
-                            values="0;1;0"
-                            dur="0.3s"
-                            begin="48s"
-                            repeatCount="1"/>
-                        </line><line class="laser" x1="0" y1="0" x2="0" y2="-220"
-                        stroke="#ff0000" stroke-width="2" opacity="0">
-                        <animate id="laser-44-5"
-                            attributeName="opacity"
-                            values="0;1;0"
-                            dur="0.3s"
-                            begin="49s"
-                            repeatCount="1"/>
-                        </line><line class="laser" x1="0" y1="0" x2="0" y2="-220"
-                        stroke="#ff0000" stroke-width="2" opacity="0">
-                        <animate id="laser-44-6"
-                            attributeName="opacity"
-                            values="0;1;0"
-                            dur="0.3s"
-                            begin="50s"
-                            repeatCount="1"/>
-                        </line><line class="laser" x1="0" y1="0" x2="0" y2="-220"
-                        stroke="#ff0000" stroke-width="2" opacity="0">
-                        <animate id="laser-45-0"
-                            attributeName="opacity"
-                            values="0;1;0"
-                            dur="0.3s"
-                            begin="45s"
-                            repeatCount="1"/>
-                        </line><line class="laser" x1="0" y1="0" x2="0" y2="-220"
-                        stroke="#ff0000" stroke-width="2" opacity="0">
-                        <animate id="laser-45-1"
-                            attributeName="opacity"
-                            values="0;1;0"
-                            dur="0.3s"
-                            begin="46s"
-                            repeatCount="1"/>
-                        </line><line class="laser" x1="0" y1="0" x2="0" y2="-220"
-                        stroke="#ff0000" stroke-width="2" opacity="0">
-                        <animate id="laser-45-2"
-                            attributeName="opacity"
-                            values="0;1;0"
-                            dur="0.3s"
-                            begin="47s"
-                            repeatCount="1"/>
-                        </line><line class="laser" x1="0" y1="0" x2="0" y2="-220"
-                        stroke="#ff0000" stroke-width="2" opacity="0">
-                        <animate id="laser-45-3"
-                            attributeName="opacity"
-                            values="0;1;0"
-                            dur="0.3s"
-                            begin="48s"
-                            repeatCount="1"/>
-                        </line><line class="laser" x1="0" y1="0" x2="0" y2="-220"
-                        stroke="#ff0000" stroke-width="2" opacity="0">
-                        <animate id="laser-45-4"
-                            attributeName="opacity"
-                            values="0;1;0"
-                            dur="0.3s"
-                            begin="49s"
-                            repeatCount="1"/>
-                        </line><line class="laser" x1="0" y1="0" x2="0" y2="-220"
-                        stroke="#ff0000" stroke-width="2" opacity="0">
-                        <animate id="laser-45-5"
-                            attributeName="opacity"
-                            values="0;1;0"
-                            dur="0.3s"
-                            begin="50s"
-                            repeatCount="1"/>
-                        </line><line class="laser" x1="0" y1="0" x2="0" y2="-220"
-                        stroke="#ff0000" stroke-width="2" opacity="0">
-                        <animate id="laser-45-6"
-                            attributeName="opacity"
-                            values="0;1;0"
-                            dur="0.3s"
-                            begin="51s"
-                            repeatCount="1"/>
-                        </line><line class="laser" x1="0" y1="0" x2="0" y2="-220"
-                        stroke="#ff0000" stroke-width="2" opacity="0">
-                        <animate id="laser-46-0"
-                            attributeName="opacity"
-                            values="0;1;0"
-                            dur="0.3s"
-                            begin="46s"
-                            repeatCount="1"/>
-                        </line><line class="laser" x1="0" y1="0" x2="0" y2="-220"
-                        stroke="#ff0000" stroke-width="2" opacity="0">
-                        <animate id="laser-46-1"
-                            attributeName="opacity"
-                            values="0;1;0"
-                            dur="0.3s"
-                            begin="47s"
-                            repeatCount="1"/>
-                        </line><line class="laser" x1="0" y1="0" x2="0" y2="-220"
-                        stroke="#ff0000" stroke-width="2" opacity="0">
-                        <animate id="laser-46-2"
-                            attributeName="opacity"
-                            values="0;1;0"
-                            dur="0.3s"
-                            begin="48s"
-                            repeatCount="1"/>
-                        </line><line class="laser" x1="0" y1="0" x2="0" y2="-220"
-                        stroke="#ff0000" stroke-width="2" opacity="0">
-                        <animate id="laser-46-3"
-                            attributeName="opacity"
-                            values="0;1;0"
-                            dur="0.3s"
-                            begin="49s"
-                            repeatCount="1"/>
-                        </line><line class="laser" x1="0" y1="0" x2="0" y2="-220"
-                        stroke="#ff0000" stroke-width="2" opacity="0">
-                        <animate id="laser-46-4"
-                            attributeName="opacity"
-                            values="0;1;0"
-                            dur="0.3s"
-                            begin="50s"
-                            repeatCount="1"/>
-                        </line><line class="laser" x1="0" y1="0" x2="0" y2="-220"
-                        stroke="#ff0000" stroke-width="2" opacity="0">
-                        <animate id="laser-46-5"
-                            attributeName="opacity"
-                            values="0;1;0"
-                            dur="0.3s"
-                            begin="51s"
-                            repeatCount="1"/>
-                        </line><line class="laser" x1="0" y1="0" x2="0" y2="-220"
-                        stroke="#ff0000" stroke-width="2" opacity="0">
-                        <animate id="laser-46-6"
-                            attributeName="opacity"
-                            values="0;1;0"
-                            dur="0.3s"
-                            begin="52s"
-                            repeatCount="1"/>
-                        </line><line class="laser" x1="0" y1="0" x2="0" y2="-220"
-                        stroke="#ff0000" stroke-width="2" opacity="0">
-                        <animate id="laser-47-0"
-                            attributeName="opacity"
-                            values="0;1;0"
-                            dur="0.3s"
-                            begin="47s"
-                            repeatCount="1"/>
-                        </line><line class="laser" x1="0" y1="0" x2="0" y2="-220"
-                        stroke="#ff0000" stroke-width="2" opacity="0">
-                        <animate id="laser-47-1"
-                            attributeName="opacity"
-                            values="0;1;0"
-                            dur="0.3s"
-                            begin="48s"
-                            repeatCount="1"/>
-                        </line><line class="laser" x1="0" y1="0" x2="0" y2="-220"
-                        stroke="#ff0000" stroke-width="2" opacity="0">
-                        <animate id="laser-47-2"
-                            attributeName="opacity"
-                            values="0;1;0"
-                            dur="0.3s"
-                            begin="49s"
-                            repeatCount="1"/>
-                        </line><line class="laser" x1="0" y1="0" x2="0" y2="-220"
-                        stroke="#ff0000" stroke-width="2" opacity="0">
-                        <animate id="laser-47-3"
-                            attributeName="opacity"
-                            values="0;1;0"
-                            dur="0.3s"
-                            begin="50s"
-                            repeatCount="1"/>
-                        </line><line class="laser" x1="0" y1="0" x2="0" y2="-220"
-                        stroke="#ff0000" stroke-width="2" opacity="0">
-                        <animate id="laser-47-4"
-                            attributeName="opacity"
-                            values="0;1;0"
-                            dur="0.3s"
-                            begin="51s"
-                            repeatCount="1"/>
-                        </line><line class="laser" x1="0" y1="0" x2="0" y2="-220"
-                        stroke="#ff0000" stroke-width="2" opacity="0">
-                        <animate id="laser-47-5"
-                            attributeName="opacity"
-                            values="0;1;0"
-                            dur="0.3s"
-                            begin="52s"
-                            repeatCount="1"/>
-                        </line><line class="laser" x1="0" y1="0" x2="0" y2="-220"
-                        stroke="#ff0000" stroke-width="2" opacity="0">
-                        <animate id="laser-47-6"
-                            attributeName="opacity"
-                            values="0;1;0"
-                            dur="0.3s"
-                            begin="53s"
-                            repeatCount="1"/>
-                        </line><line class="laser" x1="0" y1="0" x2="0" y2="-220"
-                        stroke="#ff0000" stroke-width="2" opacity="0">
-                        <animate id="laser-48-0"
-                            attributeName="opacity"
-                            values="0;1;0"
-                            dur="0.3s"
-                            begin="48s"
-                            repeatCount="1"/>
-                        </line><line class="laser" x1="0" y1="0" x2="0" y2="-220"
-                        stroke="#ff0000" stroke-width="2" opacity="0">
-                        <animate id="laser-48-1"
-                            attributeName="opacity"
-                            values="0;1;0"
-                            dur="0.3s"
-                            begin="49s"
-                            repeatCount="1"/>
-                        </line><line class="laser" x1="0" y1="0" x2="0" y2="-220"
-                        stroke="#ff0000" stroke-width="2" opacity="0">
-                        <animate id="laser-48-3"
-                            attributeName="opacity"
-                            values="0;1;0"
-                            dur="0.3s"
-                            begin="51s"
-                            repeatCount="1"/>
-                        </line><line class="laser" x1="0" y1="0" x2="0" y2="-220"
-                        stroke="#ff0000" stroke-width="2" opacity="0">
-                        <animate id="laser-48-4"
-                            attributeName="opacity"
-                            values="0;1;0"
-                            dur="0.3s"
-                            begin="52s"
-                            repeatCount="1"/>
-                        </line><line class="laser" x1="0" y1="0" x2="0" y2="-220"
-                        stroke="#ff0000" stroke-width="2" opacity="0">
-                        <animate id="laser-48-5"
-                            attributeName="opacity"
-                            values="0;1;0"
-                            dur="0.3s"
-                            begin="53s"
-                            repeatCount="1"/>
-                        </line><line class="laser" x1="0" y1="0" x2="0" y2="-220"
-                        stroke="#ff0000" stroke-width="2" opacity="0">
-                        <animate id="laser-48-6"
-                            attributeName="opacity"
-                            values="0;1;0"
-                            dur="0.3s"
-                            begin="54s"
-                            repeatCount="1"/>
-                        </line><line class="laser" x1="0" y1="0" x2="0" y2="-220"
-                        stroke="#ff0000" stroke-width="2" opacity="0">
-                        <animate id="laser-49-0"
-                            attributeName="opacity"
-                            values="0;1;0"
-                            dur="0.3s"
-                            begin="49s"
-                            repeatCount="1"/>
-                        </line><line class="laser" x1="0" y1="0" x2="0" y2="-220"
-                        stroke="#ff0000" stroke-width="2" opacity="0">
-                        <animate id="laser-49-1"
-                            attributeName="opacity"
-                            values="0;1;0"
-                            dur="0.3s"
-                            begin="50s"
-                            repeatCount="1"/>
-                        </line><line class="laser" x1="0" y1="0" x2="0" y2="-220"
-                        stroke="#ff0000" stroke-width="2" opacity="0">
-                        <animate id="laser-49-2"
-                            attributeName="opacity"
-                            values="0;1;0"
-                            dur="0.3s"
-                            begin="51s"
-                            repeatCount="1"/>
-                        </line><line class="laser" x1="0" y1="0" x2="0" y2="-220"
-                        stroke="#ff0000" stroke-width="2" opacity="0">
-                        <animate id="laser-49-3"
-                            attributeName="opacity"
-                            values="0;1;0"
-                            dur="0.3s"
-                            begin="52s"
-                            repeatCount="1"/>
-                        </line><line class="laser" x1="0" y1="0" x2="0" y2="-220"
-                        stroke="#ff0000" stroke-width="2" opacity="0">
-                        <animate id="laser-49-4"
-                            attributeName="opacity"
-                            values="0;1;0"
-                            dur="0.3s"
-                            begin="53s"
-                            repeatCount="1"/>
-                        </line><line class="laser" x1="0" y1="0" x2="0" y2="-220"
-                        stroke="#ff0000" stroke-width="2" opacity="0">
-                        <animate id="laser-49-5"
-                            attributeName="opacity"
-                            values="0;1;0"
-                            dur="0.3s"
-                            begin="54s"
-                            repeatCount="1"/>
-                        </line><line class="laser" x1="0" y1="0" x2="0" y2="-220"
-                        stroke="#ff0000" stroke-width="2" opacity="0">
-                        <animate id="laser-49-6"
-                            attributeName="opacity"
-                            values="0;1;0"
-                            dur="0.3s"
-                            begin="55s"
-                            repeatCount="1"/>
-                        </line><line class="laser" x1="0" y1="0" x2="0" y2="-220"
-                        stroke="#ff0000" stroke-width="2" opacity="0">
-                        <animate id="laser-50-0"
-                            attributeName="opacity"
-                            values="0;1;0"
-                            dur="0.3s"
-                            begin="50s"
-                            repeatCount="1"/>
-                        </line><line class="laser" x1="0" y1="0" x2="0" y2="-220"
-                        stroke="#ff0000" stroke-width="2" opacity="0">
-                        <animate id="laser-50-1"
-                            attributeName="opacity"
-                            values="0;1;0"
-                            dur="0.3s"
-                            begin="51s"
-                            repeatCount="1"/>
-                        </line><line class="laser" x1="0" y1="0" x2="0" y2="-220"
-                        stroke="#ff0000" stroke-width="2" opacity="0">
-                        <animate id="laser-50-2"
-                            attributeName="opacity"
-                            values="0;1;0"
-                            dur="0.3s"
-                            begin="52s"
-                            repeatCount="1"/>
-                        </line><line class="laser" x1="0" y1="0" x2="0" y2="-220"
-                        stroke="#ff0000" stroke-width="2" opacity="0">
-                        <animate id="laser-50-3"
-                            attributeName="opacity"
-                            values="0;1;0"
-                            dur="0.3s"
-                            begin="53s"
-                            repeatCount="1"/>
-                        </line><line class="laser" x1="0" y1="0" x2="0" y2="-220"
-                        stroke="#ff0000" stroke-width="2" opacity="0">
-                        <animate id="laser-50-4"
-                            attributeName="opacity"
-                            values="0;1;0"
-                            dur="0.3s"
-                            begin="54s"
-                            repeatCount="1"/>
-                        </line><line class="laser" x1="0" y1="0" x2="0" y2="-220"
-                        stroke="#ff0000" stroke-width="2" opacity="0">
-                        <animate id="laser-50-5"
-                            attributeName="opacity"
-                            values="0;1;0"
-                            dur="0.3s"
-                            begin="55s"
-                            repeatCount="1"/>
-                        </line><line class="laser" x1="0" y1="0" x2="0" y2="-220"
-                        stroke="#ff0000" stroke-width="2" opacity="0">
-                        <animate id="laser-50-6"
-                            attributeName="opacity"
-                            values="0;1;0"
-                            dur="0.3s"
-                            begin="56s"
-                            repeatCount="1"/>
-                        </line><line class="laser" x1="0" y1="0" x2="0" y2="-220"
-                        stroke="#ff0000" stroke-width="2" opacity="0">
-                        <animate id="laser-51-0"
-                            attributeName="opacity"
-                            values="0;1;0"
-                            dur="0.3s"
-                            begin="51s"
-                            repeatCount="1"/>
-                        </line><line class="laser" x1="0" y1="0" x2="0" y2="-220"
-                        stroke="#ff0000" stroke-width="2" opacity="0">
-                        <animate id="laser-51-1"
-                            attributeName="opacity"
-                            values="0;1;0"
-                            dur="0.3s"
-                            begin="52s"
-                            repeatCount="1"/>
-                        </line><line class="laser" x1="0" y1="0" x2="0" y2="-220"
-                        stroke="#ff0000" stroke-width="2" opacity="0">
-                        <animate id="laser-51-2"
-                            attributeName="opacity"
-                            values="0;1;0"
-                            dur="0.3s"
-                            begin="53s"
-                            repeatCount="1"/>
-                        </line><line class="laser" x1="0" y1="0" x2="0" y2="-220"
-                        stroke="#ff0000" stroke-width="2" opacity="0">
-                        <animate id="laser-51-3"
-                            attributeName="opacity"
-                            values="0;1;0"
-                            dur="0.3s"
-                            begin="54s"
-                            repeatCount="1"/>
-                        </line><line class="laser" x1="0" y1="0" x2="0" y2="-220"
-                        stroke="#ff0000" stroke-width="2" opacity="0">
-                        <animate id="laser-51-4"
-                            attributeName="opacity"
-                            values="0;1;0"
-                            dur="0.3s"
-                            begin="55s"
-                            repeatCount="1"/>
-                        </line><line class="laser" x1="0" y1="0" x2="0" y2="-220"
-                        stroke="#ff0000" stroke-width="2" opacity="0">
-                        <animate id="laser-51-5"
-                            attributeName="opacity"
-                            values="0;1;0"
-                            dur="0.3s"
-                            begin="56s"
-                            repeatCount="1"/>
-                        </line><line class="laser" x1="0" y1="0" x2="0" y2="-220"
-                        stroke="#ff0000" stroke-width="2" opacity="0">
-                        <animate id="laser-51-6"
-                            attributeName="opacity"
-                            values="0;1;0"
-                            dur="0.3s"
-                            begin="57s"
-                            repeatCount="1"/>
-                        </line><line class="laser" x1="0" y1="0" x2="0" y2="-220"
-                        stroke="#ff0000" stroke-width="2" opacity="0">
-                        <animate id="laser-52-0"
-                            attributeName="opacity"
-                            values="0;1;0"
-                            dur="0.3s"
-                            begin="52s"
-                            repeatCount="1"/>
-                        </line><line class="laser" x1="0" y1="0" x2="0" y2="-220"
-                        stroke="#ff0000" stroke-width="2" opacity="0">
-                        <animate id="laser-52-1"
-                            attributeName="opacity"
-                            values="0;1;0"
-                            dur="0.3s"
-                            begin="53s"
-                            repeatCount="1"/>
-                        </line><line class="laser" x1="0" y1="0" x2="0" y2="-220"
-                        stroke="#ff0000" stroke-width="2" opacity="0">
-                        <animate id="laser-52-2"
-                            attributeName="opacity"
-                            values="0;1;0"
-                            dur="0.3s"
-                            begin="54s"
-                            repeatCount="1"/>
-                        </line>
-    </g>
-    
-    <script>
-        function resetAnimation() {
-            var grid = document.getElementById('contribution-grid');
-            while (grid.firstChild) {
-                grid.removeChild(grid.firstChild);
-            }
+    <g class="spaceship">
+        <g transform="translate(0,280)">
+            <!-- Ship body (facing upward) -->
+            <path d="M-15,10 L0,-20 L15,10 L0,0 Z" fill="#61dafb"/>
+            <!-- Ship cannon -->
+            <rect x="-3" y="-15" width="6" height="8" fill="#ff0000"/>
             
-            // Reload the SVG to restart the animation
-            var svgElement = document.querySelector('svg');
-            var newSvgElement = svgElement.cloneNode(true);
-            svgElement.parentNode.replaceChild(newSvgElement, svgElement);
+            <!-- Auto-firing laser -->
+            
+        <line class="laser" x1="0" y1="0" x2="0" y2="0"
+            stroke="#ff0000" stroke-width="2" stroke-linecap="round">
+            <animate attributeName="y2" values="0;-220" dur="0.3s" 
+                begin="0s;laser-opacity.end+0.7s" fill="freeze" id="laser-move"/>
+            <animate attributeName="opacity" values="1;1;0" dur="0.3s"
+                begin="0s;laser-opacity.end+0.7s" id="laser-opacity"/>
+        </line>
+        </g>
+    </g>
+
+    <script><![CDATA[
+        function createExplosion(x, y) {
+            const explosion = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+            explosion.setAttribute("cx", x + 6);
+            explosion.setAttribute("cy", y + 6);
+            explosion.setAttribute("r", "8");
+            explosion.setAttribute("fill", "#ff4500");
+            explosion.setAttribute("filter", "url(#explosion)");
+            explosion.classList.add("explosion");
+            return explosion;
         }
+
+        const laser = document.querySelector('.laser');
+        const grid = document.getElementById('contribution-grid');
         
-        // Check if all contribution boxes are destroyed
-        function checkContributions() {
-            var contributions = document.querySelectorAll('.contribution-box');
-            if (contributions.length === 0) {
-                resetAnimation();
-            }
-        }
-        
-        // Call checkContributions periodically
-        setInterval(checkContributions, 5000);
-    </script>
+        laser.addEventListener('beginEvent', () => {
+            const checkCollision = setInterval(() => {
+                const boxes = document.querySelectorAll('.contribution-box');
+                const laserBox = laser.getBoundingClientRect();
+                
+                for (const box of boxes) {
+                    const boxRect = box.getBoundingClientRect();
+                    if (laserBox.x >= boxRect.x && 
+                        laserBox.x <= boxRect.x + boxRect.width &&
+                        laserBox.y <= boxRect.y + boxRect.height) {
+                            
+                        const explosion = createExplosion(
+                            parseInt(box.getAttribute('x')),
+                            parseInt(box.getAttribute('y'))
+                        );
+                        
+                        box.parentElement.appendChild(explosion);
+                        box.style.opacity = 0;
+                        setTimeout(() => {
+                            box.remove();
+                            explosion.remove();
+                        }, 500);
+                        
+                        clearInterval(checkCollision);
+                        break;
+                    }
+                }
+            }, 50);
+
+            setTimeout(() => clearInterval(checkCollision), 300);
+        });
+    ]]></script>
 </svg>
