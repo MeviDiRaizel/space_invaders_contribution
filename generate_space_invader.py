@@ -52,14 +52,14 @@ def create_space_invader_svg(weeks, output_file: str):
             for day_idx, day in enumerate(week["contributionDays"]):
                 if day["contributionCount"] > 0:
                     laser_svg += (
-                        f"""<line class="laser" x1="0" y1="0" x2="0" y2="-270"
+                        f"""<line class="laser" x1="0" y1="0" x2="0" y2="-220"
                         stroke="#ff0000" stroke-width="2" opacity="0">
                         <animate id="laser-{week_idx}-{day_idx}"
                             attributeName="opacity"
                             values="0;1;0"
                             dur="0.3s"
-                            begin="{week_idx + day_idx * 0.3}s"
-                            repeatCount="indefinite"/>
+                            begin="{week_idx + day_idx}s"
+                            repeatCount="1"/>
                         </line>"""
                     )
         return laser_svg
@@ -107,7 +107,7 @@ def create_space_invader_svg(weeks, output_file: str):
     {"".join(f'<circle cx="{random.randint(0, 900)}" cy="{random.randint(0, 300)}" r="1" fill="white" opacity="{random.uniform(0.3, 1)}"><animate attributeName="opacity" values="{random.uniform(0.3, 0.7)};1;{random.uniform(0.3, 0.7)}" dur="{random.uniform(1, 3)}s" repeatCount="indefinite"/></circle>' for _ in range(50))}
     
     <!-- Contribution Grid -->
-    <g transform="translate(50,20)">
+    <g transform="translate(50,20)" id="contribution-grid">
     {''.join(
         f'<g class="contribution-group" id="contrib-{week_idx}-{day_idx}">'
         f'<rect class="contribution-box" x="{week_idx * 15}" y="{day_idx * 15}" '
@@ -125,13 +125,38 @@ def create_space_invader_svg(weeks, output_file: str):
     </g>
     
     <!-- Space Invader Ship -->
-    <g class="spaceship" transform="translate(0,250)">
+    <g class="spaceship" transform="translate(0,270)">
         <path d="M-20,0 L0,-20 L20,0 L10,10 L-10,10 Z" fill="#61dafb"/>
         <circle cx="0" cy="-5" r="3" fill="#ff0000"/>
         
         <!-- Auto-firing lasers -->
         {laser_lines()}
     </g>
+    
+    <script>
+        function resetAnimation() {{
+            var grid = document.getElementById('contribution-grid');
+            while (grid.firstChild) {{
+                grid.removeChild(grid.firstChild);
+            }}
+            
+            // Reload the SVG to restart the animation
+            var svgElement = document.querySelector('svg');
+            var newSvgElement = svgElement.cloneNode(true);
+            svgElement.parentNode.replaceChild(newSvgElement, svgElement);
+        }}
+        
+        // Check if all contribution boxes are destroyed
+        function checkContributions() {{
+            var contributions = document.querySelectorAll('.contribution-box');
+            if (contributions.length === 0) {{
+                resetAnimation();
+            }}
+        }}
+        
+        // Call checkContributions periodically
+        setInterval(checkContributions, 5000);
+    </script>
 </svg>'''
 
     with open(output_file, 'w', encoding='utf-8') as f:
