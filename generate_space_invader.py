@@ -49,84 +49,91 @@ def create_space_invader_svg(weeks, output_file: str):
     svg_template = f'''<svg width="900" height="300" xmlns="http://www.w3.org/2000/svg">
     <defs>
         <filter id="explosion">
-            <feGaussianBlur in="SourceGraphic" stdDeviation="3" result="blur"/>
-            <feColorMatrix in="blur" type="matrix"
-                values="1 0 0 0 0  
-                        0 1 0 0 0  
-                        0 0 1 0 0  
-                        0 0 0 18 -7"/>
+            <feGaussianBlur in="SourceGraphic" stdDeviation="2"/>
+            <feColorMatrix type="matrix" values="
+                1 0 0 0 1
+                0 1 0 0 0.5
+                0 0 1 0 0
+                0 0 0 1 0"/>
         </filter>
         
         <style>
-            @keyframes ship-move {{
-                0% {{ transform: translateX(-200px); }}
-                50% {{ transform: translateX(200px); }}
-                100% {{ transform: translateX(-200px); }}
+            @keyframes ship-patrol {{
+                0%, 100% {{ transform: translateX(0); }}
+                50% {{ transform: translateX(800px); }}
             }}
-            
             @keyframes laser-shot {{
-                0% {{ opacity: 1; transform: translateY(0); }}
-                100% {{ opacity: 0; transform: translateY(-250px); }}
+                from {{ transform: scaleY(0); }}
+                to {{ transform: scaleY(1); }}
             }}
-            
-            @keyframes explode {{
-                0% {{ transform: scale(1); opacity: 1; }}
-                100% {{ transform: scale(2); opacity: 0; }}
-            }}
-            
             .spaceship {{
-                animation: ship-move 4s linear infinite;
+                animation: ship-patrol 8s linear infinite;
             }}
-            
-            .laser {{
-                animation: laser-shot 0.8s linear infinite;
+            .contribution-box {{
+                transition: all 0.3s ease-out;
             }}
-            
             .explosion {{
-                animation: explode 0.3s ease-out forwards;
+                transform-origin: center;
+                animation: explode 0.5s ease-out forwards;
+            }}
+            @keyframes explode {{
+                0% {{ transform: scale(0); opacity: 1; }}
+                100% {{ transform: scale(2); opacity: 0; }}
             }}
         </style>
     </defs>
     
     <rect width="100%" height="100%" fill="#0d1117"/>
     
+    <!-- Stars background -->
+    {"".join(f'<circle cx="{random.randint(0, 900)}" cy="{random.randint(0, 300)}" r="1" fill="white" opacity="{random.uniform(0.3, 1)}"><animate attributeName="opacity" values="{random.uniform(0.3, 0.7)};1;{random.uniform(0.3, 0.7)}" dur="{random.uniform(1, 3)}s" repeatCount="indefinite"/></circle>' for _ in range(50))}
+    
     <!-- Contribution Grid -->
     <g transform="translate(50,20)">
     {''.join(
-        f'<g class="contribution" id="c-{week_idx}-{day_idx}">'
-        f'<rect x="{week_idx * 15}" y="{day_idx * 15}" width="12" height="12" rx="2" '
-        f'fill="{get_color(day["contributionCount"])}">'
-        f'<animate attributeName="opacity" from="1" to="0" dur="0.3s" '
-        f'begin="laser-{week_idx}-{day_idx}.end" fill="freeze"/>'
+        f'<g class="contribution-group" id="contrib-{week_idx}-{day_idx}">'
+        f'<rect class="contribution-box" x="{week_idx * 15}" y="{day_idx * 15}" '
+        f'width="12" height="12" rx="2" fill="{get_color(day["contributionCount"])}">'
+        f'<animate id="destroy-{week_idx}-{day_idx}" attributeName="opacity" '
+        f'from="1" to="0" dur="0.3s" begin="indefinite"/>'
         f'</rect>'
-        f'<circle class="explosion" cx="{week_idx * 15 + 6}" cy="{day_idx * 15 + 6}" r="6" '
-        f'fill="#ff4500" opacity="0" filter="url(#explosion)">'
-        f'<animate attributeName="opacity" from="0" to="1" dur="0.3s" '
-        f'begin="laser-{week_idx}-{day_idx}.end" fill="freeze"/>'
-        f'</circle>'
-        f'</g>'
+        f'<circle class="explosion" cx="{week_idx * 15 + 6}" cy="{day_idx * 15 + 6}" '
+        f'r="8" fill="#ff4500" opacity="0" filter="url(#explosion)">'
+        f'<animate id="explode-{week_idx}-{day_idx}" attributeName="opacity" '
+        f'values="0;1;0" dur="0.5s" begin="destroy-{week_idx}-{day_idx}.begin"/>'
+        f'</circle></g>'
         for week_idx, week in enumerate(weeks)
         for day_idx, day in enumerate(week["contributionDays"])
         if day["contributionCount"] > 0
     )}
     </g>
     
-    <!-- Animated Space Invader Ship -->
-    <g class="spaceship" transform="translate(450,270)">
-        <!-- Ship body -->
-        <rect x="-20" y="-10" width="40" height="20" fill="#2ebd2e" rx="5"/>
-        <!-- Ship top -->
-        <path d="M -15 0 Q 0 -20 15 0" fill="#1a7a1a"/>
-        <!-- Cannon -->
-        <rect x="-5" y="-15" width="10" height="5" fill="#ff0000"/>
+    <!-- Space Invader Ship -->
+    <g class="spaceship" transform="translate(0,250)">
+        <path d="M-20,0 L0,-20 L20,0 L10,10 L-10,10 Z" fill="#61dafb"/>
+        <circle cx="0" cy="-5" r="3" fill="#ff0000"/>
         
-        <!-- Shooting Lasers -->
+        <!-- Auto-firing lasers -->
         {''.join(
-            f'<line class="laser" x1="0" y1="-10" x2="{50 + week_idx * 15 + 6 - 450}" y2="{20 + day_idx * 15 + 6 - 270}" '
-            f'stroke="#00ff00" stroke-width="2" stroke-linecap="round" opacity="0">'
-            f'<animate id="laser-{week_idx}-{day_idx}" attributeName="opacity" '
-            f'values="0;1;0" dur="1s" begin="{random.uniform(0, 2)}s" repeatCount="indefinite"/>'
-            f'</line>'
+            f'<line class="laser" x1="0" y1="0" x2="0" y2="-230"
+            stroke="#ff0000" stroke-width="2" opacity="0">
+            <animate id="laser-{week_idx}-{day_idx}"
+                attributeName="opacity"
+                values="0;1;0"
+                dur="0.3s"
+                begin="{week_idx + day_idx}s;{week_idx + day_idx + 8}s"
+                repeatCount="indefinite"/>
+            <animate
+                attributeName="x1"
+                values="{week_idx * 15 + 56};{week_idx * 15 + 56}"
+                dur="0.3s"
+                begin="laser-{week_idx}-{day_idx}.begin"/>
+            <animate
+                attributeName="x2"
+                values="{week_idx * 15 + 56};{week_idx * 15 + 56}"
+                dur="0.3s"
+                begin="laser-{week_idx}-{day_idx}.begin"/>
+        </line>'
             for week_idx, week in enumerate(weeks)
             for day_idx, day in enumerate(week["contributionDays"])
             if day["contributionCount"] > 0
