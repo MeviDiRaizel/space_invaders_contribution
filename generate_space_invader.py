@@ -58,16 +58,16 @@ def create_space_invader_svg(weeks, output_file: str):
         </filter>
         
         <style>
-            @keyframes ship-patrol {{
-                0%, 100% {{ transform: translateX(0); }}
-                50% {{ transform: translateX(800px); }}
+            @keyframes ship-move {{
+                0% {{ transform: translateX(50px); }}
+                100% {{ transform: translateX(750px); }}
             }}
             @keyframes laser-shot {{
                 from {{ transform: scaleY(0); }}
                 to {{ transform: scaleY(1); }}
             }}
             .spaceship {{
-                animation: ship-patrol 8s linear infinite;
+                animation: ship-move 6s linear infinite alternate;
             }}
             .contribution-box {{
                 transition: all 0.3s ease-out;
@@ -94,13 +94,11 @@ def create_space_invader_svg(weeks, output_file: str):
         f'<g class="contribution-group" id="contrib-{week_idx}-{day_idx}">'
         f'<rect class="contribution-box" x="{week_idx * 15}" y="{day_idx * 15}" '
         f'width="12" height="12" rx="2" fill="{get_color(day["contributionCount"])}">'
-        f'<animate id="destroy-{week_idx}-{day_idx}" attributeName="opacity" '
-        f'from="1" to="0" dur="0.3s" begin="indefinite"/>'
+        f'<animate attributeName="opacity" from="1" to="0" dur="0.3s" begin="laser-{week_idx}-{day_idx}.begin" fill="freeze"/>'
         f'</rect>'
         f'<circle class="explosion" cx="{week_idx * 15 + 6}" cy="{day_idx * 15 + 6}" '
         f'r="8" fill="#ff4500" opacity="0" filter="url(#explosion)">'
-        f'<animate id="explode-{week_idx}-{day_idx}" attributeName="opacity" '
-        f'values="0;1;0" dur="0.5s" begin="destroy-{week_idx}-{day_idx}.begin"/>'
+        f'<animate attributeName="opacity" values="0;1;0" dur="0.5s" begin="laser-{week_idx}-{day_idx}.begin"/>'
         f'</circle></g>'
         for week_idx, week in enumerate(weeks)
         for day_idx, day in enumerate(week["contributionDays"])
@@ -115,24 +113,24 @@ def create_space_invader_svg(weeks, output_file: str):
         
         <!-- Auto-firing lasers -->
         {''.join(
-            f'<line class="laser" x1="0" y1="0" x2="0" y2="-230"
+            f'<line class="laser" x1="0" y1="0" x2="0" y2="-270"
             stroke="#ff0000" stroke-width="2" opacity="0">
             <animate id="laser-{week_idx}-{day_idx}"
                 attributeName="opacity"
                 values="0;1;0"
                 dur="0.3s"
-                begin="{week_idx + day_idx}s;{week_idx + day_idx + 8}s"
+                begin="{week_idx + day_idx * 0.3}s"
                 repeatCount="indefinite"/>
             <animate
                 attributeName="x1"
-                values="{week_idx * 15 + 56};{week_idx * 15 + 56}"
+                values="0;0"
                 dur="0.3s"
-                begin="laser-{week_idx}-{day_idx}.begin"/>
+                begin="{week_idx + day_idx * 0.3}s"/>
             <animate
                 attributeName="x2"
-                values="{week_idx * 15 + 56};{week_idx * 15 + 56}"
+                values="0;0"
                 dur="0.3s"
-                begin="laser-{week_idx}-{day_idx}.begin"/>
+                begin="{week_idx + day_idx * 0.3}s"/>
         </line>'
             for week_idx, week in enumerate(weeks)
             for day_idx, day in enumerate(week["contributionDays"])
