@@ -46,6 +46,24 @@ def get_contributions(username: str) -> List[dict]:
         raise Exception(f"Failed to fetch GitHub data: {str(e)}")
 
 def create_space_invader_svg(weeks, output_file: str):
+    def laser_lines():
+        laser_svg = ""
+        for week_idx, week in enumerate(weeks):
+            for day_idx, day in enumerate(week["contributionDays"]):
+                if day["contributionCount"] > 0:
+                    laser_svg += (
+                        f"""<line class="laser" x1="0" y1="0" x2="0" y2="-270"
+                        stroke="#ff0000" stroke-width="2" opacity="0">
+                        <animate id="laser-{week_idx}-{day_idx}"
+                            attributeName="opacity"
+                            values="0;1;0"
+                            dur="0.3s"
+                            begin="{week_idx + day_idx * 0.3}s"
+                            repeatCount="indefinite"/>
+                        </line>"""
+                    )
+        return laser_svg
+
     svg_template = f'''<svg width="900" height="300" xmlns="http://www.w3.org/2000/svg">
     <defs>
         <filter id="explosion">
@@ -112,20 +130,7 @@ def create_space_invader_svg(weeks, output_file: str):
         <circle cx="0" cy="-5" r="3" fill="#ff0000"/>
         
         <!-- Auto-firing lasers -->
-        {''.join(
-            f"""<line class="laser" x1="0" y1="0" x2="0" y2="-270"
-            stroke="#ff0000" stroke-width="2" opacity="0">
-            <animate id="laser-{week_idx}-{day_idx}"
-                attributeName="opacity"
-                values="0;1;0"
-                dur="0.3s"
-                begin="{week_idx + day_idx * 0.3}s"
-                repeatCount="indefinite"/>
-            </line>"""
-            for week_idx, week in enumerate(weeks)
-            for day_idx, day in enumerate(week["contributionDays"])
-            if day["contributionCount"] > 0
-        )}
+        {laser_lines()}
     </g>
 </svg>'''
 
