@@ -1,198 +1,220 @@
-import random
-import os
-import sys
 import requests
-from typing import List
+import datetime
+import math
+import random
 
-def get_contributions(username: str) -> List[dict]:
-    token = os.getenv('GH_TOKEN')
-    if not token:
-        raise EnvironmentError("GitHub token not found. Please set the GH_TOKEN environment variable.")
-    
-    query = """
-    query($username: String!) {
-      user(login: $username) {
-        contributionsCollection {
-          contributionCalendar {
-            totalContributions
-            weeks {
-              contributionDays {
-                contributionCount
-                date
-              }
+def get_github_contributions(username):
+    now = datetime.datetime.now()
+    last_year = now - datetime.timedelta(days=365)
+    query = '''
+    query {
+        user(login: "%s") {
+            contributionsCollection(from: "%s", to: "%s") {
+                contributionCalendar {
+                    totalContributions
+                    weeks {
+                        contributionDays {
+                            contributionCount
+                            date
+                        }
+                    }
+                }
             }
-          }
         }
-      }
     }
-    """
+    ''' % (username, last_year.strftime("%Y-%m-%d"), now.strftime("%Y-%m-%d"))
+
+    headers = {
+        'Authorization': f'Bearer {github_token}' if 'github_token' in globals() else None
+    }
     
-    headers = {"Authorization": f"Bearer {token}"}
-    try:
-        response = requests.post(
-            'https://api.github.com/graphql',
-            json={'query': query, 'variables': {'username': username}},
-            headers=headers,
-            timeout=10
-        )
-        response.raise_for_status()
-        data = response.json()
-        
-        if 'errors' in data:
-            raise Exception(f"GitHub API Error: {data['errors']}")
-        
-        return data
-    except requests.exceptions.RequestException as e:
-        raise Exception(f"Failed to fetch GitHub data: {str(e)}")
+    response = requests.post('https://api.github.com/graphql', json={'query': query}, headers=headers)
+    data = response.json()
+    return data['data']['user']['contributionsCollection']['contributionCalendar']
 
-def create_space_invader_svg(weeks, output_file: str):
-    def laser_lines():
-        return '''
-        <line class="laser" x1="0" y1="0" x2="0" y2="0"
-            stroke="#ff0000" stroke-width="2" stroke-linecap="round">
-            <animate attributeName="y2" values="0;-220" dur="0.3s" 
-                begin="0s;laser-opacity.end+0.7s" fill="freeze" id="laser-move"/>
-            <animate attributeName="opacity" values="1;1;0" dur="0.3s"
-                begin="0s;laser-opacity.end+0.7s" id="laser-opacity"/>
-        </line>'''
-
-    svg_template = f'''<svg width="900" height="300" xmlns="http://www.w3.org/2000/svg">
+def generate_space_invader_svg(username):
+    contributions = get_github_contributions(username)
+    weeks = contributions['weeks']
+    
+    # SVG dimensions and settings
+    cell_size = 10
+    cell_padding = 2
+    week_count = len(weeks)
+    width = (week_count * (cell_size + cell_padding))
+    height = (7 * (cell_size + cell_padding)) + 100  # Extra space for spaceship
+    
+    # Create SVG header with animation definitions
+    svg = f'''<svg width="{width}" height="{height}" viewBox="0 0 {width} {height}" 
+         xmlns="http://www.w3.org/2000/svg">
     <defs>
-        <filter id="explosion">
-            <feGaussianBlur in="SourceGraphic" stdDeviation="2"/>
-            <feColorMatrix type="matrix" values="1 0 0 0 1  0 1 0 0 0.5  0 0 1 0 0  0 0 0 1 0"/>
-        </filter>
+        <!-- Explosion animation -->
+        <radialGradient id="explosion" cx="0.5" cy="0.5" r="0.5">
+            <stop offset="0%" stop-color="#ff8c00"/>
+            <stop offset="100%" stop-color="#ff4500"/>
+        </radialGradient>
         
-        <style>
-            @keyframes ship-move {{
-                0% {{ transform: translateX(50px); }}
-                100% {{ transform: translateX(750px); }}
-            }}
-            .spaceship {{
-                animation: ship-move 6s linear infinite alternate;
-            }}
-            .contribution-box {{
-                transition: opacity 0.3s;
-            }}
-            @keyframes explode {{
-                0% {{ transform: scale(1); opacity: 1; }}
-                100% {{ transform: scale(2); opacity: 0; }}
-            }}
-            .explosion {{
-                animation: explode 0.5s ease-out forwards;
-            }}
-        </style>
+        <!-- Spaceship movement animation -->
+        <animate id="shipMove" 
+                attributeName="x"
+                from="0"
+                to="{width - 30}"
+                dur="4s"
+                repeatCount="indefinite"
+                begin="0s"
+                fill="freeze"
+                calcMode="linear"
+                keyTimes="0;0.4;0.6;1"
+                values="0;{width - 30};{width - 30};0"/>
     </defs>
     
+    <!-- Background -->
     <rect width="100%" height="100%" fill="#0d1117"/>
     
-    <!-- Stars background -->
-    {"".join(f'<circle cx="{random.randint(0, 900)}" cy="{random.randint(0, 300)}" r="1" fill="white" opacity="{random.uniform(0.3, 1)}"><animate attributeName="opacity" values="{random.uniform(0.3, 0.7)};1;{random.uniform(0.3, 0.7)}" dur="{random.uniform(1, 3)}s" repeatCount="indefinite"/></circle>' for _ in range(50))}
+    <!-- Contribution grid -->
+    '''
     
-    <!-- Contribution Grid -->
-    <g transform="translate(50,20)" id="contribution-grid">
-    {''.join(
-        f'<g class="contribution-group" id="contrib-{week_idx}-{day_idx}">'
-        f'<rect class="contribution-box" x="{week_idx * 15}" y="{day_idx * 15}" '
-        f'width="12" height="12" rx="2" fill="{get_color(day["contributionCount"])}"/>'
-        f'</g>'
-        for week_idx, week in enumerate(weeks)
-        for day_idx, day in enumerate(week["contributionDays"])
-        if day["contributionCount"] > 0
-    )}
-    </g>
-    
-    <!-- Space Invader Ship -->
-    <g class="spaceship">
-        <g transform="translate(0,280)">
-            <!-- Ship body (facing upward) -->
-            <path d="M-15,10 L0,-20 L15,10 L0,0 Z" fill="#61dafb"/>
-            <!-- Ship cannon -->
-            <rect x="-3" y="-15" width="6" height="8" fill="#ff0000"/>
-            
-            <!-- Auto-firing laser -->
-            {laser_lines()}
-        </g>
-    </g>
-
-    <script><![CDATA[
-        function createExplosion(x, y) {{
-            const explosion = document.createElementNS("http://www.w3.org/2000/svg", "circle");
-            explosion.setAttribute("cx", x + 6);
-            explosion.setAttribute("cy", y + 6);
-            explosion.setAttribute("r", "8");
-            explosion.setAttribute("fill", "#ff4500");
-            explosion.setAttribute("filter", "url(#explosion)");
-            explosion.classList.add("explosion");
-            return explosion;
-        }}
-
-        const laser = document.querySelector('.laser');
-        const grid = document.getElementById('contribution-grid');
-        
-        laser.addEventListener('beginEvent', () => {{
-            const checkCollision = setInterval(() => {{
-                const boxes = document.querySelectorAll('.contribution-box');
-                const laserBox = laser.getBoundingClientRect();
+    # Generate contribution boxes
+    boxes = []
+    for week_index, week in enumerate(weeks):
+        for day_index, day in enumerate(week['contributionDays']):
+            count = day['contributionCount']
+            if count > 0:
+                x = week_index * (cell_size + cell_padding)
+                y = day_index * (cell_size + cell_padding)
+                color = '#39d353' if count > 0 else '#161b22'
+                box_id = f'box_{week_index}_{day_index}'
                 
-                for (const box of boxes) {{
-                    const boxRect = box.getBoundingClientRect();
-                    if (laserBox.x >= boxRect.x && 
-                        laserBox.x <= boxRect.x + boxRect.width &&
-                        laserBox.y <= boxRect.y + boxRect.height) {{
-                            
-                        const explosion = createExplosion(
-                            parseInt(box.getAttribute('x')),
-                            parseInt(box.getAttribute('y'))
-                        );
-                        
-                        box.parentElement.appendChild(explosion);
-                        box.style.opacity = 0;
-                        setTimeout(() => {{
-                            box.remove();
-                            explosion.remove();
-                        }}, 500);
-                        
-                        clearInterval(checkCollision);
-                        break;
-                    }}
-                }}
-            }}, 50);
-
-            setTimeout(() => clearInterval(checkCollision), 300);
-        }});
+                boxes.append(f'''
+    <g id="{box_id}">
+        <rect x="{x}" y="{y}" width="{cell_size}" height="{cell_size}" 
+              fill="{color}" rx="2" ry="2">
+            <animate id="explode_{box_id}" 
+                     attributeName="opacity"
+                     from="1" to="0"
+                     dur="0.3s"
+                     begin="indefinite"
+                     fill="freeze"/>
+        </rect>
+    </g>''')
+    
+    svg += '\n'.join(boxes)
+    
+    # Add spaceship
+    spaceship_y = height - 40
+    svg += f'''
+    <!-- Spaceship -->
+    <g id="spaceship">
+        <path d="M15 {spaceship_y} l-15 20 h30 l-15 -20" fill="#4a9eff">
+            <animateMotion dur="4s" repeatCount="indefinite">
+                <mpath href="#shipPath"/>
+            </animateMotion>
+        </path>
+    </g>
+    
+    <!-- Spaceship path -->
+    <path id="shipPath" d="M0 0 H{width - 30} H0" fill="none" visibility="hidden"/>
+    
+    <!-- Projectiles and explosions -->
+    <script type="text/javascript"><![CDATA[
+        function createProjectile(x, y) {
+            const projectile = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+            const svgRect = document.querySelector("svg").getBoundingClientRect();
+            const adjustedX = (x - svgRect.left) * (width / svgRect.width);
+            projectile.setAttribute("cx", adjustedX);
+            projectile.setAttribute("cy", y);
+            projectile.setAttribute("r", "3");
+            projectile.setAttribute("fill", "#ff0");
+            
+            const anim = document.createElementNS("http://www.w3.org/2000/svg", "animate");
+            anim.setAttribute("attributeName", "cy");
+            anim.setAttribute("from", y);
+            anim.setAttribute("to", "0");
+            anim.setAttribute("dur", "1s");
+            anim.setAttribute("fill", "freeze");
+            
+            projectile.appendChild(anim);
+            document.querySelector("svg").appendChild(projectile);
+            
+            anim.beginElement();
+            
+            // Check for collisions with improved timing and accuracy
+            const checkCollision = () => {
+                const projectileY = parseFloat(projectile.getAttribute("cy"));
+                const boxes = document.querySelectorAll('[id^="box_"]');
+                
+                boxes.forEach(box => {
+                    const rect = box.querySelector('rect');
+                    const boxX = parseFloat(rect.getAttribute('x'));
+                    const boxY = parseFloat(rect.getAttribute('y'));
+                    
+                    if (Math.abs(boxX - adjustedX) < 8 && Math.abs(boxY - projectileY) < 8) {
+                        const explodeAnim = document.querySelector(`#explode_${box.id}`);
+                        if (explodeAnim && !explodeAnim.hasAttribute('begun')) {
+                            explodeAnim.setAttribute('begun', 'true');
+                            explodeAnim.beginElement();
+                            createExplosion(boxX, boxY);
+                            projectile.remove();
+                        }
+                    }
+                });
+                
+                if (projectileY > 0 && projectile.parentNode) {
+                    requestAnimationFrame(checkCollision);
+                }
+            };
+            
+            requestAnimationFrame(checkCollision);
+        }
+        
+        function createExplosion(x, y) {
+            const explosion = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+            explosion.setAttribute("cx", x + 5);
+            explosion.setAttribute("cy", y + 5);
+            explosion.setAttribute("r", "0");
+            explosion.setAttribute("fill", "url(#explosion)");
+            
+            const scaleAnim = document.createElementNS("http://www.w3.org/2000/svg", "animate");
+            scaleAnim.setAttribute("attributeName", "r");
+            scaleAnim.setAttribute("from", "0");
+            scaleAnim.setAttribute("to", "10");
+            scaleAnim.setAttribute("dur", "0.3s");
+            scaleAnim.setAttribute("fill", "freeze");
+            
+            const fadeAnim = document.createElementNS("http://www.w3.org/2000/svg", "animate");
+            fadeAnim.setAttribute("attributeName", "opacity");
+            fadeAnim.setAttribute("from", "1");
+            fadeAnim.setAttribute("to", "0");
+            fadeAnim.setAttribute("dur", "0.3s");
+            fadeAnim.setAttribute("fill", "freeze");
+            
+            explosion.appendChild(scaleAnim);
+            explosion.appendChild(fadeAnim);
+            document.querySelector("svg").appendChild(explosion);
+            
+            scaleAnim.beginElement();
+            fadeAnim.beginElement();
+            
+            setTimeout(() => explosion.remove(), 300);
+        }
+        
+        // Fire projectiles with corrected position tracking
+        setInterval(() => {
+            const ship = document.querySelector("#spaceship");
+            const shipRect = ship.getBoundingClientRect();
+            createProjectile(shipRect.x, spaceship_y);
+        }, 1000);
     ]]></script>
-</svg>'''
+    </svg>'''
+    
+    return svg
 
-    with open(output_file, 'w', encoding='utf-8') as f:
-        f.write(svg_template)
+def main():
+    # Replace with your GitHub username
+    username = 'your_username'
+    svg_content = generate_space_invader_svg(username)
+    
+    with open('contribution_space_invader.svg', 'w', encoding='utf-8') as f:
+        f.write(svg_content)
 
-def get_color(count: int) -> str:
-    if count == 0:
-        return '#161b22'
-    elif count <= 3:
-        return '#0e4429'
-    elif count <= 6:
-        return '#006d32'
-    elif count <= 9:
-        return '#26a641'
-    else:
-        return '#39d353'
-
-if __name__ == "__main__":
-    try:
-        username = sys.argv[1] if len(sys.argv) > 1 else "MeviDiRaizel"
-        print(f"Fetching contributions for user: {username}")
-        
-        data = get_contributions(username)
-        
-        if 'data' in data and 'user' in data['data']:
-            weeks = data['data']['user']['contributionsCollection']['contributionCalendar']['weeks']
-            output_path = os.path.join(os.getcwd(), 'contribution_space_invader.svg')
-            create_space_invader_svg(weeks, output_path)
-            print(f"Successfully generated SVG at: {output_path}")
-        else:
-            raise Exception("Invalid response format from GitHub API")
-    except Exception as e:
-        print(f"Error: {str(e)}", file=sys.stderr)
-        sys.exit(1)
+if __name__ == '__main__':
+    main()
